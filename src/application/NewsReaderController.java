@@ -20,6 +20,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -27,11 +28,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -43,6 +47,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
+import javafx.stage.WindowEvent;
 import javafx.stage.FileChooser.ExtensionFilter;
 import serverConection.ConnectionManager;
 
@@ -64,6 +69,9 @@ public class NewsReaderController {
 	@FXML
 	private ComboBox<Categories> categoryCombo;
 	
+	@FXML
+	private Button menuButton;
+	
 	private NewsReaderModel newsReaderModel = new NewsReaderModel();
 	private User usr;
 	
@@ -75,8 +83,10 @@ public class NewsReaderController {
 	public NewsReaderController() {
 		//TODO
 		//Uncomment next sentence to use data from server instead dummy data
-		//newsReaderModel.setDummyData(false);
+		newsReaderModel.setDummyData(false);
 		//Get text Label
+		
+		
 	}
 
 
@@ -104,6 +114,44 @@ public class NewsReaderController {
 						}
 					}
 		 });
+		 
+		 ContextMenu contextMenu = new ContextMenu();
+		 
+		 MenuItem login = new MenuItem("Login");
+		 MenuItem edit = new MenuItem("Edit");
+		 MenuItem LoadFile = new MenuItem("Load File");
+		 MenuItem deleteArticle = new MenuItem("Delete Article");
+		 MenuItem newArticle = new MenuItem("New Article");
+		 MenuItem exit = new MenuItem("Exit");
+		 
+		 login.setOnAction(new EventHandler<ActionEvent>() {
+			 @Override
+			 public void handle(ActionEvent event) {
+				 System.out.print("login");
+			 }
+		 });
+		 
+		 contextMenu.getItems().add(login);
+//		 contextMenu.getItems().add(edit);
+//		 contextMenu.getItems().add(LoadFile);
+//		 contextMenu.getItems().add(deleteArticle);
+//		 contextMenu.getItems().add(newArticle);
+//		 contextMenu.getItems().add(exit);
+
+		 EventHandler<WindowEvent> event = new EventHandler<WindowEvent>() {
+			 public void handle(WindowEvent e)
+			 {
+				 System.out.print(" event ");
+				 if(contextMenu.isShowing()) System.out.print("showing");
+				 else System.out.print("not showing");
+			 }
+		 };
+		 
+		 contextMenu.setOnShowing(event);
+		 contextMenu.setOnHiding(event);
+		 
+		 menuButton.setContextMenu(contextMenu);
+
 		//The method newsReaderModel.retrieveData() can be used to retrieve data  
 	}
 

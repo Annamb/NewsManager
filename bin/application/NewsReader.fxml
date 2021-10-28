@@ -21,6 +21,7 @@
             </VBox>
             <VBox prefHeight="200.0" prefWidth="300.0">
                <children>
+                  <Button fx:id="menuButton" mnemonicParsing="false" text="Menu" />
                   <Label fx:id="articleName" text="Name of Article" />
                   <TextArea fx:id="articleBody" prefHeight="200.0" prefWidth="200.0" />
                   <Button mnemonicParsing="false" text="Read more" />

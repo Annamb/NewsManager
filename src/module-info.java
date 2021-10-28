@@ -8,6 +8,7 @@ module NewsManager {
 	requires java.logging;
 	requires jdk.jsobject;
 	requires javafx.swing;
+	requires javafx.base;
 	
 	opens application to javafx.controls, javafx.graphics, javafx.fxml, com.jfoenix;
 	exports application;

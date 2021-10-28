@@ -16,12 +16,16 @@ public class LoginController {
 	public LoginController (){
 	
 		//Uncomment next sentence to use data from server instead dummy data
-		//loginModel.setDummyData(false);
+		loginModel.setDummyData(false);
 	}
 	
 	User getLoggedUsr() {
 		return loggedUsr;
 		
+	}
+	
+	User logIn (String login, String passwd) {
+		return this.loginModel.validateUser(login, passwd);
 	}
 		
 	void setConnectionManager (ConnectionManager connection) {
