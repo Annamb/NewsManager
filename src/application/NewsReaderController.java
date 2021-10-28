@@ -29,6 +29,7 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
@@ -57,8 +58,11 @@ public class NewsReaderController {
 	@FXML
 	private Label articleName;
 	
-//	@FXML
-//	private ComboBox<String> categoryCombo;
+	@FXML
+	private TextArea articleBody;
+	
+	@FXML
+	private ComboBox<Categories> categoryCombo;
 	
 	private NewsReaderModel newsReaderModel = new NewsReaderModel();
 	private User usr;
@@ -75,32 +79,31 @@ public class NewsReaderController {
 		//Get text Label
 	}
 
+
 		
 
 	private void getData() {
 		//TODO retrieve data and update UI
 		 newsReaderModel.retrieveData();
+		 categoryCombo.getItems().addAll(newsReaderModel.getCategories());
 		 articleList.getItems().addAll(newsReaderModel.getArticles());
 
-//		 articleList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Article>() {
-//				 @Override
-//					/**
-//					 * When the selected element is changed this event handler is called
-//					 */
-//					public void changed(ObservableValue<? extends Article> observable, Article oldValue, Article newValue) {
-//						if (newValue != null){
-//							chosenArticle = newValue;
-//							articleName.setText("breytt");
-////							articleName.setText(newValue.getTitle());
-//							//btnNext.setDisable(false);
-//							//contactSelected.setText(newValue.toString());
-//						}
-//						else { //Nothing selected
-//							//contactSelected.setText("");
-//							//btnNext.setDisable(true);
-//						}
-//					}
-//		 });
+		 articleList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Article>() {
+				 @Override
+					/**
+					 * When the selected element is changed this event handler is called
+					 */
+					public void changed(ObservableValue<? extends Article> observable, Article oldValue, Article newValue) {
+						if (newValue != null){
+							chosenArticle = newValue;
+							articleName.setText(chosenArticle.getTitle());
+							articleBody.setText(chosenArticle.getBodyText());
+						}
+						else { //Nothing selected
+
+						}
+					}
+		 });
 		//The method newsReaderModel.retrieveData() can be used to retrieve data  
 	}
 
