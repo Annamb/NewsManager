@@ -52,7 +52,7 @@ import javafx.stage.FileChooser.ExtensionFilter;
 import serverConection.ConnectionManager;
 
 /**
- * @author ÃngelLucas
+ * @author ï¿½ngelLucas
  *
  */
 public class NewsReaderController {
@@ -71,6 +71,9 @@ public class NewsReaderController {
 	
 	@FXML
 	private Button menuButton;
+	
+	@FXML
+	private Button readMoreButton;
 	
 	private NewsReaderModel newsReaderModel = new NewsReaderModel();
 	private User usr;
@@ -105,12 +108,13 @@ public class NewsReaderController {
 					 */
 					public void changed(ObservableValue<? extends Article> observable, Article oldValue, Article newValue) {
 						if (newValue != null){
+							readMoreButton.setDisable(false);
 							chosenArticle = newValue;
 							articleName.setText(chosenArticle.getTitle());
 							articleBody.setText(chosenArticle.getBodyText());
 						}
 						else { //Nothing selected
-
+							readMoreButton.setDisable(true);
 						}
 					}
 		 });
