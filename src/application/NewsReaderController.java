@@ -42,6 +42,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -77,6 +78,7 @@ public class NewsReaderController {
 	@FXML
 	private Button menuButton;
 	
+    private FilteredList<Article> filteredData;
 	private NewsReaderModel newsReaderModel = new NewsReaderModel();
 	private User usr;
 	
@@ -90,8 +92,6 @@ public class NewsReaderController {
 		//Uncomment next sentence to use data from server instead dummy data
 		newsReaderModel.setDummyData(false);
 		//Get text Label
-		
-		
 	}
 	
 	@FXML
@@ -113,13 +113,40 @@ public class NewsReaderController {
 	}
 
 
-		
+	 @FXML
+	    void changeCategory(ActionEvent event) {
+		//TODO:
+	    	//Get the text associated to key pressed
+	    	
+	    	//If key code corresponds to a character or digit then add to text filter
+	    	
+	    	
+	    	//Update the filter. If filtetText is empty, 
+	    	//all contacts must be shown in other case,
+	    	//only contacts that start with filterText must be shown
+	      //END TODO
+	    	
+	    	String filterText = this.categoryCombo.getValue().toString();
+
+	    	if(filterText == "All") {
+		    	filteredData.setPredicate(article -> true);
+	    	}else {
+		    	filteredData.setPredicate(article -> article.getCategory().equals(filterText));
+	    	}
+	    	
+	    	this.articleList.setItems(filteredData);
+	    }
+	
 
 	private void getData() {
 		//TODO retrieve data and update UI
 		 newsReaderModel.retrieveData();
 		 categoryCombo.getItems().addAll(newsReaderModel.getCategories());
-		 articleList.getItems().addAll(newsReaderModel.getArticles());
+		 
+	    	filteredData = new FilteredList<>(newsReaderModel.getArticles(), article -> true);
+	    	
+	    	this.articleList.setItems(filteredData);
+		 //articleList.getItems().addAll(newsReaderModel.getArticles());
 
 	}
 
@@ -132,7 +159,6 @@ public class NewsReaderController {
 
 	void setConnectionManager (ConnectionManager connection){
 		//this.newsReaderModel.setDummyData(false); //System is connected so dummy data are not needed
-		System.out.print("setConnectionManager!");
 		this.newsReaderModel.setConnectionManager(connection);
 		this.getData();
 	}
@@ -184,13 +210,13 @@ public class NewsReaderController {
             stage.setScene(new Scene(root));
             
             if(article == null) {
-            	stage.showAndWait();
+            	stage.show();
             	LoginController controller = loader.<LoginController>getController();
             	
     			Properties prop = Main.buildServerProperties();
     			ConnectionManager connection = new ConnectionManager(prop);
 
-    			connection.setAnonymousAPIKey("ANON_04");
+    			connection.setAnonymousAPIKey("");
 
     			controller.setConnectionManager(connection);		
     			
