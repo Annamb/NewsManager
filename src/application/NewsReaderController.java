@@ -35,6 +35,7 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.MenuButton;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -64,6 +65,9 @@ import serverConection.exceptions.AuthenticationError;
 public class NewsReaderController {
 
 	@FXML
+	private Label userName;
+	
+	@FXML
     private ListView<Article> articleList;
 	
 	@FXML
@@ -76,7 +80,10 @@ public class NewsReaderController {
 	private ComboBox<Categories> categoryCombo;
 	
 	@FXML
-	private Button menuButton;
+	private MenuButton menuButton;
+	
+	@FXML
+	private Button ReadMoreButton;
 	
     private FilteredList<Article> filteredData;
 	private NewsReaderModel newsReaderModel = new NewsReaderModel();
@@ -143,11 +150,9 @@ public class NewsReaderController {
 		 newsReaderModel.retrieveData();
 		 categoryCombo.getItems().addAll(newsReaderModel.getCategories());
 		 
-	    	filteredData = new FilteredList<>(newsReaderModel.getArticles(), article -> true);
-	    	
-	    	this.articleList.setItems(filteredData);
-		 //articleList.getItems().addAll(newsReaderModel.getArticles());
-
+    	filteredData = new FilteredList<>(newsReaderModel.getArticles(), article -> true);
+    	
+    	this.articleList.setItems(filteredData);
 	}
 
 	/**
@@ -175,15 +180,15 @@ public class NewsReaderController {
 	}
 	
 	public void ClickEdit() {
-		
+		NewScene(AppScenes.EDITOR, this.chosenArticle);
 	}
 	
 	public void ClickNew() {
-		
+		NewScene(AppScenes.EDITOR, null);
 	}
 	
 	public void ClickObserve() {
-		
+		NewScene(AppScenes.NEWS_DETAILS, this.chosenArticle);
 	}
 	
 	public void ClickLogin() {
@@ -191,6 +196,7 @@ public class NewsReaderController {
 	}
 	
 	public void ClickDelete() {
+
 		
 	}
 	
@@ -228,6 +234,8 @@ public class NewsReaderController {
             }else {
             	stage.show();
             	NewsReaderController controller = loader.<NewsReaderController>getController();
+            	
+            	
             }
             
 		} catch(AuthenticationError e) {
