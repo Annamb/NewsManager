@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
@@ -21,10 +22,17 @@
             </VBox>
             <VBox prefHeight="200.0" prefWidth="300.0">
                <children>
-                  <Button fx:id="menuButton" mnemonicParsing="false" text="Menu" />
+                  <MenuButton mnemonicParsing="false" text="MenuButton">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#ClickLogin" text="Login" />
+                      <MenuItem mnemonicParsing="false" onAction="#ClickNew" text="New" />
+                        <MenuItem mnemonicParsing="false" onAction="#ClickEdit" text="Edit" />
+                        <MenuItem mnemonicParsing="false" onAction="#ClickDelete" text="Delete" />
+                        <MenuItem mnemonicParsing="false" onAction="#ClickExit" text="Exit" />
+                    </items>
+                  </MenuButton>
                   <Label fx:id="articleName" text="Name of Article" />
                   <TextArea fx:id="articleBody" prefHeight="200.0" prefWidth="200.0" />
-                  <Button mnemonicParsing="false" text="Read more" />
                </children>
             </VBox>
          </children>

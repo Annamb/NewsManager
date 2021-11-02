@@ -4,9 +4,13 @@
 package application;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
+import java.util.Properties;
 import java.util.function.Predicate;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import application.news.Article;
 import application.news.Categories;
@@ -50,6 +54,7 @@ import javafx.stage.Window;
 import javafx.stage.WindowEvent;
 import javafx.stage.FileChooser.ExtensionFilter;
 import serverConection.ConnectionManager;
+import serverConection.exceptions.AuthenticationError;
 
 /**
  * @author ÃngelLucas
@@ -88,6 +93,24 @@ public class NewsReaderController {
 		
 		
 	}
+	
+	@FXML
+	void initialize() {
+		
+		articleList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Article>() {
+			 @Override
+				public void changed(ObservableValue<? extends Article> observable, Article oldValue, Article newValue) {
+					if (newValue != null){
+						chosenArticle = newValue;
+						articleName.setText(chosenArticle.getTitle());
+						articleBody.setText(chosenArticle.getBodyText());
+					}
+					else { //Nothing selected
+
+					}
+				}
+	 });
+	}
 
 
 		
@@ -98,61 +121,6 @@ public class NewsReaderController {
 		 categoryCombo.getItems().addAll(newsReaderModel.getCategories());
 		 articleList.getItems().addAll(newsReaderModel.getArticles());
 
-		 articleList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Article>() {
-				 @Override
-					/**
-					 * When the selected element is changed this event handler is called
-					 */
-					public void changed(ObservableValue<? extends Article> observable, Article oldValue, Article newValue) {
-						if (newValue != null){
-							chosenArticle = newValue;
-							articleName.setText(chosenArticle.getTitle());
-							articleBody.setText(chosenArticle.getBodyText());
-						}
-						else { //Nothing selected
-
-						}
-					}
-		 });
-		 
-		 ContextMenu contextMenu = new ContextMenu();
-		 
-		 MenuItem login = new MenuItem("Login");
-		 MenuItem edit = new MenuItem("Edit");
-		 MenuItem LoadFile = new MenuItem("Load File");
-		 MenuItem deleteArticle = new MenuItem("Delete Article");
-		 MenuItem newArticle = new MenuItem("New Article");
-		 MenuItem exit = new MenuItem("Exit");
-		 
-		 login.setOnAction(new EventHandler<ActionEvent>() {
-			 @Override
-			 public void handle(ActionEvent event) {
-				 System.out.print("login");
-			 }
-		 });
-		 
-		 contextMenu.getItems().add(login);
-//		 contextMenu.getItems().add(edit);
-//		 contextMenu.getItems().add(LoadFile);
-//		 contextMenu.getItems().add(deleteArticle);
-//		 contextMenu.getItems().add(newArticle);
-//		 contextMenu.getItems().add(exit);
-
-		 EventHandler<WindowEvent> event = new EventHandler<WindowEvent>() {
-			 public void handle(WindowEvent e)
-			 {
-				 System.out.print(" event ");
-				 if(contextMenu.isShowing()) System.out.print("showing");
-				 else System.out.print("not showing");
-			 }
-		 };
-		 
-		 contextMenu.setOnShowing(event);
-		 contextMenu.setOnHiding(event);
-		 
-		 menuButton.setContextMenu(contextMenu);
-
-		//The method newsReaderModel.retrieveData() can be used to retrieve data  
 	}
 
 	/**
@@ -163,7 +131,8 @@ public class NewsReaderController {
 	}
 
 	void setConnectionManager (ConnectionManager connection){
-		this.newsReaderModel.setDummyData(false); //System is connected so dummy data are not needed
+		//this.newsReaderModel.setDummyData(false); //System is connected so dummy data are not needed
+		System.out.print("setConnectionManager!");
 		this.newsReaderModel.setConnectionManager(connection);
 		this.getData();
 	}
@@ -177,6 +146,71 @@ public class NewsReaderController {
 		//Reload articles
 		this.getData();
 		//TODO Update UI
+	}
+	
+	public void ClickEdit() {
+		
+	}
+	
+	public void ClickNew() {
+		
+	}
+	
+	public void ClickObserve() {
+		
+	}
+	
+	public void ClickLogin() {
+		NewScene(AppScenes.LOGIN, null);
+	}
+	
+	public void ClickDelete() {
+		
+	}
+	
+	public void ClickExit() {
+		
+	}
+	
+	public void NewScene(AppScenes scene, Article article) {
+		
+		try {
+			FXMLLoader loader = new FXMLLoader (getClass().getResource(
+					scene.getFxmlFile()));
+			Pane root = loader.load();
+			Stage stage = new Stage();
+			stage.initModality(Modality.WINDOW_MODAL);
+            stage.setTitle(scene.toString());
+            stage.setScene(new Scene(root));
+            
+            if(article == null) {
+            	stage.showAndWait();
+            	LoginController controller = loader.<LoginController>getController();
+            	
+    			Properties prop = Main.buildServerProperties();
+    			ConnectionManager connection = new ConnectionManager(prop);
+
+    			connection.setAnonymousAPIKey("ANON_04");
+
+    			controller.setConnectionManager(connection);		
+    			
+            	
+            	User loggedInUsr = controller.getLoggedUsr();
+            	if (loggedInUsr != null) {
+            		setUsr(loggedInUsr);
+            	}
+            }else {
+            	stage.show();
+            	NewsReaderController controller = loader.<NewsReaderController>getController();
+            }
+            
+		} catch(AuthenticationError e) {
+			Logger.getGlobal().log(Level.SEVERE, "Error in loging process");
+			e.printStackTrace();
+		} catch(IOException e){
+			e.printStackTrace();
+		}
+		
 	}
 
 

@@ -65,18 +65,26 @@ class LoginModel {
 	 * @return return the user if user id and password are correct. In other case return null
 	 */
 	final User validateUser (String login, String passwd){
+		System.out.print("val fall");
 		User usr = null;
 		if (this.dummyData){
+			System.out.print("dummy?" + this.dummyData);
 			usr = users.get(login+":"+passwd);	
 		}
 		else
 		{
+			System.out.print("dummy!" + this.dummyData);
 			try {
+				System.out.print("1");
 				connectionManager.login(login, passwd);
+				System.out.print("2");
 				usr = new User (login, 
 						Integer.parseInt(connectionManager.getIdUser()));
+				System.out.print("3");
 				usr.setAdmin(connectionManager.isAdministrator());
+				System.out.print("4");
 			} catch (AuthenticationError e) {
+				System.out.print("villaaaaaaaaaaa");
 				Logger.getGlobal().log(Level.INFO,"Login error! incorrect user or password!!");
 			}
 			
