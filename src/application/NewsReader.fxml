@@ -17,12 +17,12 @@
             <VBox>
                <children>
                   <ListView fx:id="articleList" prefHeight="400.0" prefWidth="200.0" />
-                  <ComboBox fx:id="categoryCombo" prefWidth="150.0" />
+                  <ComboBox fx:id="categoryCombo" onAction="#changeCategory" prefWidth="150.0" />
                </children>
             </VBox>
             <VBox prefHeight="200.0" prefWidth="300.0">
                <children>
-                  <MenuButton mnemonicParsing="false" text="MenuButton">
+                  <MenuButton mnemonicParsing="false" text="Menu">
                     <items>
                       <MenuItem mnemonicParsing="false" onAction="#ClickLogin" text="Login" />
                       <MenuItem mnemonicParsing="false" onAction="#ClickNew" text="New" />
