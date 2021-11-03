@@ -3,6 +3,7 @@ package application;
 
 import application.news.User;
 import javafx.fxml.FXML;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import serverConection.ConnectionManager;
 
@@ -18,7 +19,7 @@ public class LoginController {
 	private TextField userName;
 	
 	@FXML
-	private TextField password;
+	private PasswordField password;
 	
 	@FXML
 	void initialize() {
