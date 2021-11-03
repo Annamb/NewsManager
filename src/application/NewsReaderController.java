@@ -74,6 +74,9 @@ public class NewsReaderController {
 	private Label articleName;
 	
 	@FXML
+	private ImageView articleImage;
+	
+	@FXML
 	private TextArea articleBody;
 	
 	@FXML
@@ -103,7 +106,7 @@ public class NewsReaderController {
 	
 	@FXML
 	void initialize() {
-		
+
 		articleList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Article>() {
 			 @Override
 				public void changed(ObservableValue<? extends Article> observable, Article oldValue, Article newValue) {
@@ -111,6 +114,7 @@ public class NewsReaderController {
 						chosenArticle = newValue;
 						articleName.setText(chosenArticle.getTitle());
 						articleBody.setText(chosenArticle.getBodyText());
+						articleImage.setImage(chosenArticle.getImageData());
 					}
 					else { //Nothing selected
 						
@@ -119,6 +123,7 @@ public class NewsReaderController {
 				}
 	 });
 		
+		articleList.getSelectionModel().selectFirst();
 	}
 
 
