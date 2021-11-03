@@ -113,10 +113,12 @@ public class NewsReaderController {
 						articleBody.setText(chosenArticle.getBodyText());
 					}
 					else { //Nothing selected
+						
 
 					}
 				}
 	 });
+		
 	}
 
 
@@ -177,6 +179,7 @@ public class NewsReaderController {
 		//Reload articles
 		this.getData();
 		//TODO Update UI
+		userName.setText(this.usr.getLogin());
 	}
 	
 	public void ClickEdit() {
@@ -216,18 +219,18 @@ public class NewsReaderController {
             stage.setScene(new Scene(root));
             
             if(article == null) {
-            	stage.show();
+            	
             	LoginController controller = loader.<LoginController>getController();
             	
     			Properties prop = Main.buildServerProperties();
     			ConnectionManager connection = new ConnectionManager(prop);
-
     			connection.setAnonymousAPIKey("ANON04");
-
-    			controller.setConnectionManager(connection);		
+    			controller.setConnectionManager(connection);
     			
-            	
+    			stage.showAndWait();
+    			
             	User loggedInUsr = controller.getLoggedUsr();
+            	
             	if (loggedInUsr != null) {
             		setUsr(loggedInUsr);
             	}
