@@ -35,7 +35,7 @@
                   </MenuButton>
                   <Label fx:id="articleName" text="Name of Article" />
                   <TextArea fx:id="articleBody" prefHeight="200.0" prefWidth="200.0" />
-                  <Button fx:id="Button" mnemonicParsing="false" onAction="#ClickObserve" text="Read more" />
+                  <Button fx:id="ReadMoreButton" mnemonicParsing="false" onAction="#ClickObserve" text="Read more" />
                </children>
             </VBox>
          </children>

@@ -222,7 +222,7 @@ public class NewsReaderController {
     			Properties prop = Main.buildServerProperties();
     			ConnectionManager connection = new ConnectionManager(prop);
 
-    			connection.setAnonymousAPIKey("");
+    			connection.setAnonymousAPIKey("ANON04");
 
     			controller.setConnectionManager(connection);		
     			
