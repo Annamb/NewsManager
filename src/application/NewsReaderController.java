@@ -70,14 +70,12 @@ public class NewsReaderController {
 	@FXML
     private ListView<Article> articleList;
 	
-	@FXML
-	private Label articleName;
 	
 	@FXML
 	private ImageView articleImage;
 	
 	@FXML
-	private TextArea articleBody;
+	private TextArea articleAbstract;
 	
 	@FXML
 	private ComboBox<Categories> categoryCombo;
@@ -121,8 +119,7 @@ public class NewsReaderController {
 				public void changed(ObservableValue<? extends Article> observable, Article oldValue, Article newValue) {
 					if (newValue != null){
 						chosenArticle = newValue;
-						articleName.setText(chosenArticle.getTitle());
-						articleBody.setText(chosenArticle.getBodyText());
+						articleAbstract.setText(chosenArticle.getAbstractText());
 						articleImage.setImage(chosenArticle.getImageData());
 					}
 					else { //Nothing selected
@@ -165,6 +162,7 @@ public class NewsReaderController {
 		//TODO retrieve data and update UI
 		 newsReaderModel.retrieveData();
 		 categoryCombo.getItems().addAll(newsReaderModel.getCategories());
+		 categoryCombo.getSelectionModel().selectFirst();
 		 
     	filteredData = new FilteredList<>(newsReaderModel.getArticles(), article -> true);
     	
@@ -173,11 +171,9 @@ public class NewsReaderController {
     	if(this.usr == null) {
     		this.deleteButton.setDisable(true);
     		this.editButton.setDisable(true);
-    		this.newButton.setDisable(true);
     	}else {
     		this.deleteButton.setDisable(false);
     		this.editButton.setDisable(false);
-    		this.newButton.setDisable(false);
     	}
 	}
 
@@ -227,7 +223,12 @@ public class NewsReaderController {
 		
 	}
 	
-	public void ClickExit() {
+	public void ClickExit(ActionEvent event) {
+		Stage stage = (Stage)((MenuItem)event.getTarget()).getParentPopup().getOwnerWindow();
+    	stage.close();
+	}
+	
+	public void LoadArticleFromFile() {
 		
 	}
 	
