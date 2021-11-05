@@ -33,9 +33,9 @@
                   <MenuButton fx:id="menuButton" mnemonicParsing="false" text="Menu">
                     <items>
                       <MenuItem mnemonicParsing="false" onAction="#ClickLogin" text="Login" />
-                      <MenuItem mnemonicParsing="false" onAction="#ClickNew" text="New" />
-                        <MenuItem mnemonicParsing="false" onAction="#ClickEdit" text="Edit" />
-                        <MenuItem mnemonicParsing="false" onAction="#ClickDelete" text="Delete" />
+                      <MenuItem fx:id="newButton" mnemonicParsing="false" onAction="#ClickNew" text="New" />
+                        <MenuItem fx:id="editButton" mnemonicParsing="false" onAction="#ClickEdit" text="Edit" />
+                        <MenuItem fx:id="deleteButton" mnemonicParsing="false" onAction="#ClickDelete" text="Delete" />
                         <MenuItem mnemonicParsing="false" onAction="#ClickExit" text="Exit" />
                     </items>
                   </MenuButton>

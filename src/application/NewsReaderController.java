@@ -86,6 +86,15 @@ public class NewsReaderController {
 	private MenuButton menuButton;
 	
 	@FXML
+	private MenuItem newButton;
+	
+	@FXML
+	private MenuItem editButton;
+	
+	@FXML
+	private MenuItem deleteButton;
+	
+	@FXML
 	private Button ReadMoreButton;
 	
     private FilteredList<Article> filteredData;
@@ -160,6 +169,16 @@ public class NewsReaderController {
     	filteredData = new FilteredList<>(newsReaderModel.getArticles(), article -> true);
     	
     	this.articleList.setItems(filteredData);
+    	
+    	if(this.usr == null) {
+    		this.deleteButton.setDisable(true);
+    		this.editButton.setDisable(true);
+    		this.newButton.setDisable(true);
+    	}else {
+    		this.deleteButton.setDisable(false);
+    		this.editButton.setDisable(false);
+    		this.newButton.setDisable(false);
+    	}
 	}
 
 	/**
