@@ -3,7 +3,9 @@
  */
 package application;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
@@ -212,6 +214,29 @@ public class NewsReaderController {
 		
 	}
 	
+	
+	@FXML
+	public void loadart(Event e) {
+		FileChooser chooser =  new FileChooser();
+		chooser.setTitle("打开文件");// 设置文件对话框的标题
+		
+		chooser.getExtensionFilters().addAll(
+		new FileChooser.ExtensionFilter("所有文件", "*.*"),
+		new FileChooser.ExtensionFilter("所有图片", "*.jpg", "*.gif", "*.bmp", "*.png"));
+		File file = chooser.showOpenDialog(new Stage());// 显示文件打开对话框
+		if (file == null) {
+			return;
+		}
+		
+		try {
+			Article article = JsonArticle.jsonToArticle(JsonArticle.readFile(file.getAbsolutePath()));
+			NewScene(AppScenes.EDITOR, article, e);
+		} catch (ErrorMalFormedArticle ex) {
+			// TODO Auto-generated catch block
+			ex.printStackTrace();
+		}
+	}
+	
 	public void ClickExit() {
 		
 	}
@@ -229,8 +254,12 @@ public class NewsReaderController {
             stage.setScene(new Scene(root));
             
             if (scene == AppScenes.EDITOR) {
-            
             	ArticleEditController controller = loader.<ArticleEditController>getController();
+            	
+            	if (article != null) {
+            		controller.setArticle(article);
+            	
+				}
             	controller.setConnectionMannager(this.connectionManager);
             	controller.setUsr(usr);
             	stage.show();

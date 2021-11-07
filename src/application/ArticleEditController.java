@@ -6,6 +6,7 @@ package application;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.Iterator;
 
 import javax.json.JsonObject;
 
@@ -56,14 +57,22 @@ public class ArticleEditController {
 
     @FXML
     private TextArea abstractText;
+    
+    @FXML
+    private HTMLEditor abstracthtml;
 
+    @FXML
+    private HTMLEditor bodyhtml;
+    
     @FXML
     private ChoiceBox<Categories> categoryBox;
 
     @FXML
     private ImageView imageView;
 
-    private boolean body;
+    @FXML
+    private Button sendbtn;
+
     
     
     public void setUser(User usr) {
@@ -72,7 +81,9 @@ public class ArticleEditController {
 
     @FXML
     void initialize() {
-        setArticle(null);
+    	if (this.usr == null) {
+    		sendbtn.setDisable(true);
+		}
         categoryBox.getItems().addAll(Categories.values());
     }
 
@@ -158,6 +169,11 @@ public class ArticleEditController {
         article.setAbstractText(abstractText.getText());
         article.setDeleted(false);
         article.setIdUser(usr.getIdUser());
+        if (this.editingArticle != null && this.editingArticle.getArticleOriginal() != null) {
+        	 article.setIdArticle(this.editingArticle.getArticleOriginal().getIdArticle());
+		}
+       
+       
         article.setNeedBeSaved(true);
         article.setSubtitle(subtitle.getText());
         article.setTitle(titleText);
@@ -225,7 +241,6 @@ public class ArticleEditController {
         if (image != null) {
             article.setImageData(image);
         }
-        setArticle(article);
         write();
     }
 
@@ -240,6 +255,23 @@ public class ArticleEditController {
         if (article != null) {
             title.setText(article.getTitle());
             title.setEditable(false);
+            bodyhtml.setHtmlText(article.getBodyText());
+            bodyText.setText(article.getBodyText());
+            Categories[] catesCategories =  Categories.values();
+            for (Categories cate: catesCategories) {
+				if (cate.toString().equals(article.getCategory())) {
+					 categoryBox.getSelectionModel().select(cate);
+					 break;
+				}
+				
+			}
+           
+            subtitle.setText(article.getSubtitle());
+            abstractText.setText(article.getAbstractText());
+            abstracthtml.setHtmlText(article.getAbstractText());
+            if (article.getImageData() != null) {
+				imageView.setImage(article.getImageData());
+			}
         }
     }
 
@@ -273,7 +305,26 @@ public class ArticleEditController {
 
     @FXML
     public void showText(){
-
+    	 if (bodyhtml.isVisible()) {
+    		 bodyhtml.setVisible(false);
+    		 bodyText.setVisible(true);
+    		
+             bodyText.setText(bodyhtml.getHtmlText());
+    		
+         } else if (bodyText.isVisible())  {
+        	 bodyText.setVisible(false);
+        	 bodyhtml.setVisible(true);
+        	 bodyhtml.setHtmlText(bodyText.getText());
+		} else if (abstracthtml.isVisible()) {
+			abstracthtml.setVisible(false);
+   		 	abstractText.setVisible(true);
+   		 	abstractText.setText(abstracthtml.getHtmlText());
+		} else if (abstractText.isVisible()) {
+			 abstractText.setVisible(false);
+			 abstracthtml.setVisible(true);
+			 abstracthtml.setHtmlText(abstractText.getText());
+		}
+         
     }
 
     @FXML
@@ -281,11 +332,28 @@ public class ArticleEditController {
         if (bodyText.isVisible()) {
             bodyText.setVisible(false);
             abstractText.setVisible(true);
+            abstractText.setText(abstracthtml.getHtmlText());
+            return;
+        }
+        
+        if (bodyhtml.isVisible()) {
+        	bodyhtml.setVisible(false);
+            abstracthtml.setVisible(true);
+            abstracthtml.setHtmlText(abstractText.getText());
             return;
         }
         if (abstractText.isVisible()){
             abstractText.setVisible(false);
             bodyText.setVisible(true);
+            bodyText.setText(bodyhtml.getHtmlText());
+          return;
+        }
+        
+        if (abstracthtml.isVisible()) {
+        	abstracthtml.setVisible(false);
+        	bodyhtml.setVisible(true);
+        	bodyhtml.setHtmlText(bodyText.getText());
+            return;
         }
     }
 }

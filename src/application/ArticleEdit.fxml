@@ -8,6 +8,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.web.HTMLEditor?>
 
 <AnchorPane prefHeight="420.0" prefWidth="570.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ArticleEditController">
    <children>
@@ -17,15 +18,17 @@
       <TextField fx:id="title" layoutX="272.0" layoutY="34.0" prefHeight="26.0" prefWidth="244.0" />
       <TextField fx:id="subtitle" layoutX="272.0" layoutY="75.0" prefHeight="26.0" prefWidth="244.0" />
       <ChoiceBox fx:id="categoryBox" layoutX="264.0" layoutY="144.0" prefHeight="26.0" prefWidth="96.0" />
-      <TextArea fx:id="bodyText" layoutX="31.0" layoutY="194.0" prefHeight="166.0" prefWidth="509.0" visible="true"/>
-      <TextArea fx:id="abstractText" layoutX="31.0" layoutY="194.0" prefHeight="166.0" prefWidth="509.0" visible="false"/>
-      <Button layoutX="32.0" layoutY="381.0" mnemonicParsing="false" text="Back" onAction="#back"/>
-      <Button layoutX="96.0" layoutY="381.0" mnemonicParsing="false" text="Send &amp; Back" onAction="#sendAndBack" />
-      <Button layoutX="202.0" layoutY="381.0" mnemonicParsing="false" text="Save to File" onAction="#saveFile"/>
-      <Button layoutX="360.0" layoutY="381.0" mnemonicParsing="false" text="Text/html" onAction="#showText"/>
-      <Button layoutX="447.0" layoutY="381.0" mnemonicParsing="false" text="Abstract/Body" onAction="#showBody"/>
+      <TextArea fx:id="bodyText" layoutX="31.0" layoutY="194.0" prefHeight="166.0" prefWidth="509.0" visible="false" />
+      <TextArea fx:id="abstractText" layoutX="31.0" layoutY="194.0" prefHeight="166.0" prefWidth="509.0" visible="false" />
+      <Button layoutX="32.0" layoutY="381.0" mnemonicParsing="false" onAction="#back" text="Back" />
+      <Button fx:id="sendbtn" layoutX="96.0" layoutY="381.0" mnemonicParsing="false" onAction="#sendAndBack" text="Send &amp; Back" />
+      <Button layoutX="202.0" layoutY="381.0" mnemonicParsing="false" onAction="#saveFile" text="Save to File" />
+      <Button layoutX="360.0" layoutY="381.0" mnemonicParsing="false" onAction="#showText" text="Text/html" />
+      <Button layoutX="447.0" layoutY="381.0" mnemonicParsing="false" onAction="#showBody" text="Abstract/Body" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f7f8f8" height="100.0" layoutX="14.0" layoutY="60.0" stroke="BLACK" strokeType="INSIDE" width="144.0" />
       <ImageView fx:id="imageView" fitHeight="100.0" fitWidth="144.0" layoutX="14.0" layoutY="60.0" onMouseClicked="#onImageClicked" pickOnBounds="true" preserveRatio="true" />
       <Label layoutX="202.0" layoutY="149.0" text="Category" />
+      <HTMLEditor fx:id="abstracthtml" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" layoutX="31.0" layoutY="193.0" prefHeight="166.0" prefWidth="510.0" visible="true" />
+      <HTMLEditor fx:id="bodyhtml" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" layoutX="32.0" layoutY="193.0" prefHeight="166.0" prefWidth="510.0" visible="false" />
    </children>
 </AnchorPane>

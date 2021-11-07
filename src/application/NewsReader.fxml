@@ -37,6 +37,7 @@
                         <MenuItem mnemonicParsing="false" onAction="#ClickEdit" text="Edit" />
                         <MenuItem mnemonicParsing="false" onAction="#ClickDelete" text="Delete" />
                         <MenuItem mnemonicParsing="false" onAction="#ClickExit" text="Exit" />
+                        <MenuItem mnemonicParsing="false" onAction="#loadart" text="load article" />
                     </items>
                   </MenuButton>
                   <Label fx:id="articleName" text="Name of Article" />
