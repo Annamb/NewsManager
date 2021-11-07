@@ -3,7 +3,9 @@
  */
 package application;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
@@ -24,6 +26,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -100,6 +103,8 @@ public class NewsReaderController {
 	private User usr;
 	
 	Article chosenArticle;
+	
+	private ConnectionManager connectionManager;
 
 	//TODO add attributes and methods as needed
 
@@ -186,6 +191,7 @@ public class NewsReaderController {
 
 	void setConnectionManager (ConnectionManager connection){
 		//this.newsReaderModel.setDummyData(false); //System is connected so dummy data are not needed
+		this.connectionManager = connection;
 		this.newsReaderModel.setConnectionManager(connection);
 		this.getData();
 	}
@@ -202,20 +208,20 @@ public class NewsReaderController {
 		userName.setText(this.usr.getLogin());
 	}
 	
-	public void ClickEdit() {
-		NewScene(AppScenes.EDITOR, this.chosenArticle);
+	public void ClickEdit(Event e) {
+		NewScene(AppScenes.EDITOR, this.chosenArticle, e);
 	}
 	
-	public void ClickNew() {
-		NewScene(AppScenes.EDITOR, null);
+	public void ClickNew(Event e) {
+		NewScene(AppScenes.EDITOR, null, e);
 	}
 	
-	public void ClickObserve() {
-		NewScene(AppScenes.NEWS_DETAILS, this.chosenArticle);
+	public void ClickObserve(Event e) {
+		NewScene(AppScenes.NEWS_DETAILS, this.chosenArticle, e);
 	}
 	
-	public void ClickLogin() {
-		NewScene(AppScenes.LOGIN, null);
+	public void ClickLogin(Event e) {
+		NewScene(AppScenes.LOGIN, null,e );
 	}
 	
 	public void ClickDelete() {
@@ -223,18 +229,41 @@ public class NewsReaderController {
 		
 	}
 	
+	
+	@FXML
+	public void LoadArticleFromFile(Event e) {
+		FileChooser chooser =  new FileChooser();
+		chooser.setTitle("打开文件");// 设置文件对话框的标题
+		
+		chooser.getExtensionFilters().addAll(
+		new FileChooser.ExtensionFilter("所有文件", "*.*"),
+		new FileChooser.ExtensionFilter("所有图片", "*.jpg", "*.gif", "*.bmp", "*.png"));
+		File file = chooser.showOpenDialog(new Stage());// 显示文件打开对话框
+		if (file == null) {
+			return;
+		}
+		
+		try {
+			Article article = JsonArticle.jsonToArticle(JsonArticle.readFile(file.getAbsolutePath()));
+			NewScene(AppScenes.EDITOR, article, e);
+		} catch (ErrorMalFormedArticle ex) {
+			// TODO Auto-generated catch block
+			ex.printStackTrace();
+		}
+	}
+	
+
 	public void ClickExit(ActionEvent event) {
 		Stage stage = (Stage)((MenuItem)event.getTarget()).getParentPopup().getOwnerWindow();
     	stage.close();
 	}
 	
-	public void LoadArticleFromFile() {
-		
-	}
+
 	
-	public void NewScene(AppScenes scene, Article article) {
+	public void NewScene(AppScenes scene, Article article, Event event) {
 		
 		try {
+			
 			FXMLLoader loader = new FXMLLoader (getClass().getResource(
 					scene.getFxmlFile()));
 			Pane root = loader.load();
@@ -243,7 +272,18 @@ public class NewsReaderController {
             stage.setTitle(scene.toString());
             stage.setScene(new Scene(root));
             
-            if(article == null) {
+            if (scene == AppScenes.EDITOR) {
+            	ArticleEditController controller = loader.<ArticleEditController>getController();
+            	
+            	if (article != null) {
+            		controller.setArticle(article);
+            	
+				}
+            	controller.setConnectionMannager(this.connectionManager);
+            	controller.setUsr(usr);
+            	stage.show();
+            	return;
+			} else if(article == null) {
             	
             	LoginController controller = loader.<LoginController>getController();
             	
