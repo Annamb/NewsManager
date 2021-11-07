@@ -73,20 +73,27 @@ public class NewsReaderController {
 	@FXML
     private ListView<Article> articleList;
 	
-	@FXML
-	private Label articleName;
 	
 	@FXML
 	private ImageView articleImage;
 	
 	@FXML
-	private TextArea articleBody;
+	private TextArea articleAbstract;
 	
 	@FXML
 	private ComboBox<Categories> categoryCombo;
 	
 	@FXML
 	private MenuButton menuButton;
+	
+	@FXML
+	private MenuItem newButton;
+	
+	@FXML
+	private MenuItem editButton;
+	
+	@FXML
+	private MenuItem deleteButton;
 	
 	@FXML
 	private Button ReadMoreButton;
@@ -117,8 +124,7 @@ public class NewsReaderController {
 				public void changed(ObservableValue<? extends Article> observable, Article oldValue, Article newValue) {
 					if (newValue != null){
 						chosenArticle = newValue;
-						articleName.setText(chosenArticle.getTitle());
-						articleBody.setText(chosenArticle.getBodyText());
+						articleAbstract.setText(chosenArticle.getAbstractText());
 						articleImage.setImage(chosenArticle.getImageData());
 					}
 					else { //Nothing selected
@@ -161,10 +167,19 @@ public class NewsReaderController {
 		//TODO retrieve data and update UI
 		 newsReaderModel.retrieveData();
 		 categoryCombo.getItems().addAll(newsReaderModel.getCategories());
+		 categoryCombo.getSelectionModel().selectFirst();
 		 
     	filteredData = new FilteredList<>(newsReaderModel.getArticles(), article -> true);
     	
     	this.articleList.setItems(filteredData);
+    	
+    	if(this.usr == null) {
+    		this.deleteButton.setDisable(true);
+    		this.editButton.setDisable(true);
+    	}else {
+    		this.deleteButton.setDisable(false);
+    		this.editButton.setDisable(false);
+    	}
 	}
 
 	/**
@@ -216,7 +231,7 @@ public class NewsReaderController {
 	
 	
 	@FXML
-	public void loadart(Event e) {
+	public void LoadArticleFromFile(Event e) {
 		FileChooser chooser =  new FileChooser();
 		chooser.setTitle("打开文件");// 设置文件对话框的标题
 		
@@ -237,9 +252,13 @@ public class NewsReaderController {
 		}
 	}
 	
-	public void ClickExit() {
-		
+
+	public void ClickExit(ActionEvent event) {
+		Stage stage = (Stage)((MenuItem)event.getTarget()).getParentPopup().getOwnerWindow();
+    	stage.close();
 	}
+	
+
 	
 	public void NewScene(AppScenes scene, Article article, Event event) {
 		
