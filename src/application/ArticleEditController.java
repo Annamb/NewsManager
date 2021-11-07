@@ -35,9 +35,7 @@ import javafx.stage.Window;
 import serverConection.ConnectionManager;
 import serverConection.exceptions.ServerCommunicationError;
 
-/**
- * @author ÁngelLucas
- */
+
 public class ArticleEditController {
 
     private ConnectionManager connection;
