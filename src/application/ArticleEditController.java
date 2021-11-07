@@ -85,6 +85,7 @@ public class ArticleEditController {
     		sendbtn.setDisable(true);
 		}
         categoryBox.getItems().addAll(Categories.values());
+        
     }
 
     @FXML
@@ -297,7 +298,6 @@ public class ArticleEditController {
 
     @FXML
     public void back(Event event) {
-        this.editingArticle.discardChanges();
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.close();
     }
