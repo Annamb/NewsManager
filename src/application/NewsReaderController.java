@@ -233,12 +233,12 @@ public class NewsReaderController {
 	@FXML
 	public void LoadArticleFromFile(Event e) {
 		FileChooser chooser =  new FileChooser();
-		chooser.setTitle("打开文件");// 设置文件对话框的标题
+		chooser.setTitle("打开文件");
 		
 		chooser.getExtensionFilters().addAll(
-		new FileChooser.ExtensionFilter("所有文件", "*.*"),
-		new FileChooser.ExtensionFilter("所有图片", "*.jpg", "*.gif", "*.bmp", "*.png"));
-		File file = chooser.showOpenDialog(new Stage());// 显示文件打开对话框
+		new FileChooser.ExtensionFilter("All files", "*.*"),
+		new FileChooser.ExtensionFilter("All news", "*.news"));
+		File file = chooser.showOpenDialog(new Stage());
 		if (file == null) {
 			return;
 		}
