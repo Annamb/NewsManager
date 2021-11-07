@@ -332,7 +332,7 @@ public class ArticleEditController {
         if (bodyText.isVisible()) {
             bodyText.setVisible(false);
             abstractText.setVisible(true);
-            abstractText.setText(abstracthtml.getAccessibleText());
+            abstractText.setText(abstracthtml.getHtmlText());
             return;
         }
         

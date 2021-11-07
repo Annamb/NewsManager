@@ -32,23 +32,22 @@
                      <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </VBox.margin></ListView>
-                  <ComboBox fx:id="categoryCombo" onAction="#changeCategory" prefWidth="150.0">
+                  <ComboBox fx:id="categoryCombo" onAction="#changeCategory" prefWidth="150.0" promptText="Category" stylesheets="@application.css">
                      <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </VBox.margin></ComboBox>
                </children>
             </VBox>
-            <VBox prefHeight="400.0" prefWidth="300.0">
+            <VBox prefHeight="400.0" prefWidth="300.0" stylesheets="@application.css">
                <children>
-                  <MenuButton fx:id="menuButton" mnemonicParsing="false" text="Menu">
+                  <MenuButton fx:id="menuButton" mnemonicParsing="false" styleClass="menu-item" stylesheets="@application.css" text="Menu" textFill="#375f8f">
                     <items>
-                        <MenuItem mnemonicParsing="false" onAction="#LoadArticleFromFile" text="Load from file" />
+                       <MenuItem mnemonicParsing="false" onAction="#LoadArticleFromFile" text="Load article from file" />
                       <MenuItem mnemonicParsing="false" onAction="#ClickLogin" text="Login" />
                       <MenuItem fx:id="newButton" mnemonicParsing="false" onAction="#ClickNew" text="New" />
                         <MenuItem fx:id="editButton" mnemonicParsing="false" onAction="#ClickEdit" text="Edit" />
                         <MenuItem fx:id="deleteButton" mnemonicParsing="false" onAction="#ClickDelete" text="Delete" />
                         <MenuItem mnemonicParsing="false" onAction="#ClickExit" text="Exit" />
-                        <MenuItem mnemonicParsing="false" onAction="#LoadArticleFromFile" text="Load article from file" />
                     </items>
                      <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -62,7 +61,7 @@
                      <VBox.margin>
                         <Insets left="10.0" right="10.0" />
                      </VBox.margin></TextArea>
-                  <Button fx:id="ReadMoreButton" mnemonicParsing="false" onAction="#ClickObserve" prefHeight="30.0" text="Read more">
+                  <Button fx:id="ReadMoreButton" mnemonicParsing="false" onAction="#ClickObserve" prefHeight="30.0" stylesheets="@application.css" text="Read more">
                      <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </VBox.margin></Button>
