@@ -7,11 +7,11 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.web.WebView?>
 
 <AnchorPane prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.NewsReaderController">
    <children>
@@ -57,10 +57,11 @@
                      <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </VBox.margin></ImageView>
-                  <TextArea fx:id="articleAbstract" prefHeight="150.0" prefWidth="200.0">
+                  <WebView fx:id="articleAbstract" prefHeight="150.0" prefWidth="200.0">
                      <VBox.margin>
                         <Insets left="10.0" right="10.0" />
-                     </VBox.margin></TextArea>
+                     </VBox.margin>
+                  </WebView>
                   <Button fx:id="ReadMoreButton" mnemonicParsing="false" onAction="#ClickObserve" prefHeight="30.0" stylesheets="@application.css" text="Read more">
                      <VBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

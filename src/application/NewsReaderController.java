@@ -78,7 +78,7 @@ public class NewsReaderController {
 	private ImageView articleImage;
 	
 	@FXML
-	private TextArea articleAbstract;
+	private WebView articleAbstract;
 	
 	@FXML
 	private ComboBox<Categories> categoryCombo;
@@ -118,23 +118,22 @@ public class NewsReaderController {
 	
 	@FXML
 	void initialize() {
+		System.out.print("initialize function");
 
 		articleList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Article>() {
 			 @Override
 				public void changed(ObservableValue<? extends Article> observable, Article oldValue, Article newValue) {
 					if (newValue != null){
 						chosenArticle = newValue;
-						articleAbstract.setText(chosenArticle.getAbstractText());
+						articleAbstract.getEngine().loadContent(chosenArticle.getAbstractText());;
 						articleImage.setImage(chosenArticle.getImageData());
 					}
 					else { //Nothing selected
-						
 
 					}
 				}
 	 });
 		
-		articleList.getSelectionModel().selectFirst();
 	}
 
 
@@ -172,6 +171,8 @@ public class NewsReaderController {
     	filteredData = new FilteredList<>(newsReaderModel.getArticles(), article -> true);
     	
     	this.articleList.setItems(filteredData);
+    	
+		articleList.getSelectionModel().selectFirst();
     	
     	if(this.usr == null) {
     		this.deleteButton.setDisable(true);
