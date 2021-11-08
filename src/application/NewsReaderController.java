@@ -237,7 +237,7 @@ public class NewsReaderController {
 		chooser.setTitle("打开文件");
 		
 		chooser.getExtensionFilters().addAll(
-		new FileChooser.ExtensionFilter("All files", "*.*"),
+
 		new FileChooser.ExtensionFilter("All news", "*.news"));
 		File file = chooser.showOpenDialog(new Stage());
 		if (file == null) {
