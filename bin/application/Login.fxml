@@ -20,7 +20,7 @@
                         <Insets left="30.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField fx:id="userName" promptText="Username" />
+                  <TextField fx:id="userName" promptText="Username" stylesheets="@application.css"  />
                </children>
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -33,7 +33,7 @@
                         <Insets left="30.0" />
                      </HBox.margin>
                   </Label>
-                  <PasswordField fx:id="password" promptText="Password" />
+                  <PasswordField fx:id="password" promptText="Password" stylesheets="@application.css" />
                </children>
                <VBox.margin>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
@@ -42,12 +42,12 @@
             <Label fx:id="errorLabel" textFill="#f71818" />
             <HBox alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" onAction="#ClickLogIn" text="Log in">
+                  <Button mnemonicParsing="false" onAction="#ClickLogIn" stylesheets="@application.css"  text="Log in">
                      <HBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin>
                   </Button>
-                  <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#ClickCancel" text="Cancel">
+                  <Button fx:id="cancelButton" mnemonicParsing="false" onAction="#ClickCancel" stylesheets="@application.css"  text="Cancel">
                      <HBox.margin>
                         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                      </HBox.margin>
