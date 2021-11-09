@@ -45,13 +45,13 @@ import serverConection.exceptions.ServerCommunicationError;
 public class ArticleDetailsController {
 	//TODO add attributes and methods as needed
 	    private User usr;
-	    private Article article;
+	    private ArticleEditModel viewArticle;
 	
 		@FXML
 		private Label userName;
 
 		@FXML
-		private ImageView articleImage;
+		private ImageView imageView;
 
 		@FXML
 		private TextArea articleAbstract;
@@ -75,19 +75,26 @@ public class ArticleDetailsController {
 		 */
 		void setUsr(User usr) {
 			this.usr = usr;
-			if (usr == null) {
-				return; //Not logged user
-			}
-			//TODO Update UI information
 		}
-
-		/**
-		 * @param article the article to set
-		 */
-		void setArticle(Article article) {
-			this.article = article;
-			//TODO complete this method
-		}
+		
+	    /**
+	     * PRE: User must be set
+	     *
+	     * @param article the article to set
+	     */
+	    void setArticle(Article article) {
+	        this.viewArticle = (article != null) ? new ArticleEditModel(article) : new ArticleEditModel(usr);
+	        if (article != null) {
+	            articleTitle.setText(article.getTitle());
+	            articleSubtitle.setText(article.getSubtitle());
+	            articleCategory.setText(article.getCategory());
+	            articleAbstract.setText(article.getAbstractText());
+	            articleBody.setText(article.getBodyText());
+	            if (article.getImageData() != null) {
+					imageView.setImage(article.getImageData());
+				}
+	        }
+	    }
 	
 	    	@FXML
 	   	public void back(Event event) {
