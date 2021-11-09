@@ -5,7 +5,7 @@ package application;
 
 /**
  * Contain all app scenes
- * @author ÁngelLucas
+ * @author Ã�ngelLucas
  *
  */
 public enum AppScenes {
@@ -13,7 +13,7 @@ public enum AppScenes {
  NEWS_DETAILS ("ArticleDetails.fxml"),
  EDITOR("ArticleEdit.fxml"), ADMIN("AdminNews.fxml")
 		 ,IMAGE_PICKER("ImagePicker.fxml")
-		 /*,IMAGE_PICKER("ImagePickerMaterailDesign.fxml")*/; 
+		 /*,IMAGE_PICKER("ImagePickerMateriallDesign.fxml")*/; 
  private String fxmlFile;
  
  private AppScenes (String file){

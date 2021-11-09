@@ -126,6 +126,8 @@ public class NewsReaderController {
 						chosenArticle = newValue;
 						articleAbstract.setText(chosenArticle.getAbstractText());
 						articleImage.setImage(chosenArticle.getImageData());
+						
+						articleAbstract.setEditable(false);
 					}
 					else { //Nothing selected
 						
@@ -299,10 +301,19 @@ public class NewsReaderController {
             	if (loggedInUsr != null) {
             		setUsr(loggedInUsr);
             	}
+			 } else if(scene == AppScenes.NEWS_DETAILS) {
+				 ArticleDetailsController controller = loader.<ArticleDetailsController>getController();
+	            	
+	             if (article != null) {
+	            	controller.setArticle(article);
+				 }
+	            	
+	             controller.setUsr(usr);
+	             stage.show();
+	             return;
             }else {
-            	stage.show();
-            	NewsReaderController controller = loader.<NewsReaderController>getController();
-            	
+            	 stage.show();
+            	 NewsReaderController controller = loader.<NewsReaderController>getController();
             	
             }
             
