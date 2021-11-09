@@ -69,7 +69,9 @@ public class ArticleEditController {
     private ImageView imageView;
 
     @FXML
-    private Button sendbtn;
+    private Button sendbtn,showbodybtn,showabstractbtn;
+
+
 
     
     
@@ -79,10 +81,8 @@ public class ArticleEditController {
 
     @FXML
     void initialize() {
-    	if (this.usr == null) {
-    		sendbtn.setDisable(true);
-		}
-        categoryBox.getItems().addAll(Categories.values());
+
+	        categoryBox.getItems().addAll(Categories.values());
         
     }
 
@@ -132,7 +132,7 @@ public class ArticleEditController {
 			Pane root = loader.load();
 			Stage stage = new Stage();
 			stage.initModality(Modality.WINDOW_MODAL);
-	        stage.setTitle(AppScenes.READER.toString());
+	        //stage.setTitle(AppScenes.READER.toString());
 	        stage.setScene(new Scene(root));
 	        NewsReaderController controller = loader.<NewsReaderController>getController();
 	        controller.setConnectionManager(this.connection);
@@ -164,6 +164,8 @@ public class ArticleEditController {
         //this.editingArticle.commit();
         Article article = new Article();
         article.setCategory(category.toString());
+        bodyText.setText(bodyhtml.getHtmlText());
+        abstractText.setText(abstracthtml.getHtmlText());
         article.setBodyText(bodyText.getText());
         article.setAbstractText(abstractText.getText());
         article.setDeleted(false);
@@ -197,7 +199,13 @@ public class ArticleEditController {
      */
     void setConnectionMannager(ConnectionManager connection) {
         this.connection = connection;
-        //TODO enable send and back button
+
+    	if (this.usr == null) {
+    		this.sendbtn.setDisable(true);
+		}
+    	else {
+    		this.sendbtn.setDisable(false);
+		}
     }
 
     /**
@@ -206,6 +214,12 @@ public class ArticleEditController {
     void setUsr(User usr) {
         this.usr = usr;
         //TODO Update UI and controls
+    	if (this.usr == null) {
+    		this.sendbtn.setDisable(true);
+		}
+    	else {
+    		this.sendbtn.setDisable(false);
+		}
 
     }
 
@@ -236,6 +250,8 @@ public class ArticleEditController {
         article.setSubtitle(subtitle.getText());
         article.setBodyText(bodyText.getText());
         article.setAbstractText(abstractText.getText());
+//        article.setBodyText(bodyhtml.getHtmlText());
+//        article.setAbstractText(abstracthtml.getHtmlText());
         Image image = imageView.getImage();
         if (image != null) {
             article.setImageData(image);
@@ -303,12 +319,10 @@ public class ArticleEditController {
 
     @FXML
     public void showText(){
-    	 if (bodyhtml.isVisible()) {
-    		 bodyhtml.setVisible(false);
-    		 bodyText.setVisible(true);
-    		
-             bodyText.setText(bodyhtml.getHtmlText());
-    		
+    	 if (abstractText.isVisible()) {
+    		 abstractText.setVisible(false);
+			 abstracthtml.setVisible(true);
+			 abstracthtml.setHtmlText(abstractText.getText());
          } else if (bodyText.isVisible())  {
         	 bodyText.setVisible(false);
         	 bodyhtml.setVisible(true);
@@ -317,10 +331,10 @@ public class ArticleEditController {
 			abstracthtml.setVisible(false);
    		 	abstractText.setVisible(true);
    		 	abstractText.setText(abstracthtml.getHtmlText());
-		} else if (abstractText.isVisible()) {
-			 abstractText.setVisible(false);
-			 abstracthtml.setVisible(true);
-			 abstracthtml.setHtmlText(abstractText.getText());
+		} else if (bodyhtml.isVisible()) {
+			bodyhtml.setVisible(false);
+   		 	bodyText.setVisible(true);
+   		    bodyText.setText(bodyhtml.getHtmlText());
 		}
          
     }
@@ -331,6 +345,8 @@ public class ArticleEditController {
             bodyText.setVisible(false);
             abstractText.setVisible(true);
             abstractText.setText(abstracthtml.getHtmlText());
+            showbodybtn.setVisible(false);
+            showabstractbtn.setVisible(true);
             return;
         }
         
@@ -338,12 +354,16 @@ public class ArticleEditController {
         	bodyhtml.setVisible(false);
             abstracthtml.setVisible(true);
             abstracthtml.setHtmlText(abstractText.getText());
+            showbodybtn.setVisible(false);
+            showabstractbtn.setVisible(true);
             return;
         }
         if (abstractText.isVisible()){
             abstractText.setVisible(false);
             bodyText.setVisible(true);
             bodyText.setText(bodyhtml.getHtmlText());
+            showbodybtn.setVisible(false);
+            showabstractbtn.setVisible(true);
           return;
         }
         
@@ -351,6 +371,46 @@ public class ArticleEditController {
         	abstracthtml.setVisible(false);
         	bodyhtml.setVisible(true);
         	bodyhtml.setHtmlText(bodyText.getText());
+            showbodybtn.setVisible(false);
+            showabstractbtn.setVisible(true);
+            return;
+        }
+    }
+    
+    @FXML
+    public void showAbstract(){
+        if (bodyText.isVisible()) {
+            bodyText.setVisible(false);
+            abstractText.setVisible(true);
+            abstractText.setText(abstracthtml.getHtmlText());
+            showbodybtn.setVisible(true);
+            showabstractbtn.setVisible(false);
+            return;
+        }
+        
+        if (bodyhtml.isVisible()) {
+        	bodyhtml.setVisible(false);
+            abstracthtml.setVisible(true);
+            abstracthtml.setHtmlText(abstractText.getText());
+            showbodybtn.setVisible(true);
+            showabstractbtn.setVisible(false);
+            return;
+        }
+        if (abstractText.isVisible()){
+            abstractText.setVisible(false);
+            bodyText.setVisible(true);
+            bodyText.setText(bodyhtml.getHtmlText());
+            showbodybtn.setVisible(true);
+            showabstractbtn.setVisible(false);
+          return;
+        }
+        
+        if (abstracthtml.isVisible()) {
+        	abstracthtml.setVisible(false);
+        	bodyhtml.setVisible(true);
+        	bodyhtml.setHtmlText(bodyText.getText());
+            showbodybtn.setVisible(true);
+            showabstractbtn.setVisible(false);
             return;
         }
     }
