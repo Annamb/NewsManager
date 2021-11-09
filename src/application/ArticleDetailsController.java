@@ -4,11 +4,42 @@
 package application;
 
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.Iterator;
+
+import javax.json.JsonObject;
+
+
 import application.news.Article;
+import application.news.Categories;
 import application.news.User;
+import application.utils.JsonArticle;
+import javafx.event.Event;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
+import javafx.scene.web.HTMLEditor;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
+import javafx.stage.Window;
+import serverConection.ConnectionManager;
+import serverConection.exceptions.ServerCommunicationError;
+
+
 
 /**
- * @author ÁngelLucas
+ * @author Ã�ngelLucas
  *
  */
 public class ArticleDetailsController {
@@ -26,17 +57,16 @@ public class ArticleDetailsController {
 		private TextArea articleAbstract;
 	
 		@FXML
-	   	private TextField title;
+	   	private TextArea articleTitle;
 
-	    	@FXML
-	    	private TextField subtitle;
+	    @FXML
+	    private TextArea articleSubtitle;
+	    
+	    @FXML
+	    private TextArea articleCategory;
 
-	    	@FXML
-	    	private TextArea bodyText;
-
-	    	@FXML
-	    	private TextArea abstractText;
-
+	    @FXML
+	    private TextArea articleBody;
 
 	    
 
@@ -67,30 +97,15 @@ public class ArticleDetailsController {
 		
 		@FXML
 	    	public void showBody(){
-		   if (bodyText.isVisible()) {
-		    	bodyText.setVisible(false);
-		    	abstractText.setVisible(true);
-		    	abstractText.setText(abstracthtml.getHtmlText());
+		   if (articleBody.isVisible()) {
+		    	articleBody.setVisible(false);
+		    	articleAbstract.setVisible(true);
 		    	return;
 		   }
-
-		   if (bodyhtml.isVisible()) {
-			bodyhtml.setVisible(false);
-		    	abstracthtml.setVisible(true);
-		    	abstracthtml.setHtmlText(abstractText.getText());
-		    	return;
-		   }
-		   if (abstractText.isVisible()){
-		   	abstractText.setVisible(false);
-		   	bodyText.setVisible(true);
-		   	bodyText.setText(bodyhtml.getHtmlText());
-		        return;
-		   }
-
-		   if (abstracthtml.isVisible()) {
-			abstracthtml.setVisible(false);
-			bodyhtml.setVisible(true);
-			bodyhtml.setHtmlText(bodyText.getText());
+		   
+		   if (articleAbstract.isVisible()){
+		   	articleAbstract.setVisible(false);
+		   	articleBody.setVisible(true);
 		        return;
 		   }
     }
