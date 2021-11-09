@@ -44,23 +44,27 @@
             </VBox>
          </children>
       </HBox>
-      <TextArea fx:id="bodyText" layoutX="31.0" layoutY="194.0" prefHeight="166.0" prefWidth="509.0" style="-fx-background-color: #ADD5F7#ADD5F7;" visible="false" />
-      <TextArea fx:id="abstractText" layoutX="31.0" layoutY="194.0" prefHeight="166.0" prefWidth="509.0" style="-fx-background-color: #ADD5F7;" visible="false" />
-      <HTMLEditor fx:id="abstracthtml" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" layoutX="31.0" layoutY="193.0" prefHeight="166.0" prefWidth="510.0" visible="true" AnchorPane.bottomAnchor="60.599999999999994" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="31.0" AnchorPane.topAnchor="192.99999999999997" />
+      <TextArea fx:id="abstractText" layoutX="31.0" layoutY="194.0" prefHeight="166.0" prefWidth="510.0" promptText="Abstract" style="-fx-background-color: #ADD5F7;" visible="true" wrapText="true" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="31.0" />
+      <TextArea fx:id="bodyText" layoutX="31.0" layoutY="194.0" prefHeight="166.0" prefWidth="509.0" promptText="Body" style="-fx-background-color: #ADD5F7#ADD5F7;" visible="false" wrapText="true" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="31.0" />
+      <HTMLEditor fx:id="abstracthtml" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" layoutX="31.0" layoutY="193.0" prefHeight="166.0" prefWidth="510.0" visible="false" AnchorPane.bottomAnchor="60.599999999999994" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="31.0" AnchorPane.topAnchor="192.99999999999997" />
       <HTMLEditor fx:id="bodyhtml" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" layoutX="31.0" layoutY="193.0" prefHeight="166.0" prefWidth="510.0" visible="false" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="31.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f7f8f8" height="100.0" layoutX="14.0" layoutY="60.0" stroke="BLACK" strokeType="INSIDE" width="144.0" AnchorPane.leftAnchor="31.0" />
       <ImageView fx:id="imageView" fitHeight="100.0" fitWidth="144.0" layoutX="14.0" layoutY="60.0" onMouseClicked="#onImageClicked" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="31.0" />
-      <HBox layoutY="373.0" prefHeight="47.0" prefWidth="575.0" spacing="20.0" AnchorPane.topAnchor="373.0">
+      <HBox layoutY="373.0" prefHeight="47.0" prefWidth="454.0" spacing="20.0" AnchorPane.topAnchor="373.0">
          <children>
             <Button mnemonicParsing="false" onAction="#back" stylesheets="@application.css" text="Back" />
             <Button fx:id="sendbtn" mnemonicParsing="false" onAction="#sendAndBack" stylesheets="@application.css" text="Send &amp; Back" />
             <Button mnemonicParsing="false" onAction="#saveFile" stylesheets="@application.css" text="Save to File" />
-            <Button mnemonicParsing="false" onAction="#showText" stylesheets="@application.css" text="Text/html" />
-            <Button mnemonicParsing="false" onAction="#showBody" stylesheets="@application.css" text="Abstract/Body" />
+            <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#showText" stylesheets="@application.css" text="Text/html">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></Button>
          </children>
          <padding>
             <Insets left="30.0" right="30.0" top="5.0" />
          </padding>
       </HBox>
+      <Button fx:id="showbodybtn" layoutX="437.0" layoutY="377.0" mnemonicParsing="false" onAction="#showBody" prefHeight="23.0" prefWidth="104.0" stylesheets="@application.css" text="Show Body" visible="true" />
+      <Button fx:id="showabstractbtn" layoutX="437.0" layoutY="377.0" mnemonicParsing="false" onAction="#showAbstract" prefHeight="23.0" prefWidth="104.0" stylesheets="@application.css" text="Show Abstract" visible="false" />
    </children>
 </AnchorPane>

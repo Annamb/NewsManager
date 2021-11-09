@@ -78,7 +78,7 @@ public class NewsReaderController {
 	private ImageView articleImage;
 	
 	@FXML
-	private TextArea articleAbstract;
+	private WebView articleAbstract;
 	
 	@FXML
 	private ComboBox<Categories> categoryCombo;
@@ -118,25 +118,24 @@ public class NewsReaderController {
 	
 	@FXML
 	void initialize() {
+		System.out.print("initialize function");
 
 		articleList.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Article>() {
 			 @Override
 				public void changed(ObservableValue<? extends Article> observable, Article oldValue, Article newValue) {
 					if (newValue != null){
 						chosenArticle = newValue;
-						articleAbstract.setText(chosenArticle.getAbstractText());
+						articleAbstract.getEngine().loadContent(chosenArticle.getAbstractText());;
 						articleImage.setImage(chosenArticle.getImageData());
 						
 						articleAbstract.setEditable(false);
 					}
 					else { //Nothing selected
-						
 
 					}
 				}
 	 });
 		
-		articleList.getSelectionModel().selectFirst();
 	}
 
 
@@ -174,6 +173,8 @@ public class NewsReaderController {
     	filteredData = new FilteredList<>(newsReaderModel.getArticles(), article -> true);
     	
     	this.articleList.setItems(filteredData);
+    	
+		articleList.getSelectionModel().selectFirst();
     	
     	if(this.usr == null) {
     		this.deleteButton.setDisable(true);
@@ -235,12 +236,12 @@ public class NewsReaderController {
 	@FXML
 	public void LoadArticleFromFile(Event e) {
 		FileChooser chooser =  new FileChooser();
-		chooser.setTitle("打开文件");// 设置文件对话框的标题
+		chooser.setTitle("打开文件");
 		
 		chooser.getExtensionFilters().addAll(
-		new FileChooser.ExtensionFilter("所有文件", "*.*"),
-		new FileChooser.ExtensionFilter("所有图片", "*.jpg", "*.gif", "*.bmp", "*.png"));
-		File file = chooser.showOpenDialog(new Stage());// 显示文件打开对话框
+
+		new FileChooser.ExtensionFilter("All news", "*.news"));
+		File file = chooser.showOpenDialog(new Stage());
 		if (file == null) {
 			return;
 		}
