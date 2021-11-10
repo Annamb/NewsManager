@@ -62,7 +62,7 @@ import serverConection.ConnectionManager;
 import serverConection.exceptions.AuthenticationError;
 
 /**
- * @author ÃngelLucas
+ * @author ï¿½ngelLucas
  *
  */
 public class NewsReaderController {
@@ -226,7 +226,8 @@ public class NewsReaderController {
 	}
 	
 	public void ClickDelete() {
-
+		newsReaderModel.deleteArticle(this.chosenArticle);
+		getData();
 		
 	}
 	
@@ -234,7 +235,7 @@ public class NewsReaderController {
 	@FXML
 	public void LoadArticleFromFile(Event e) {
 		FileChooser chooser =  new FileChooser();
-		chooser.setTitle("´ò¿ªÎÄ¼þ");
+		chooser.setTitle("ï¿½ï¿½ï¿½Ä¼ï¿½");
 		
 		chooser.getExtensionFilters().addAll(
 
