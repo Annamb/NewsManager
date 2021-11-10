@@ -29,6 +29,8 @@ class ArticleEditModel {
 	 * - True: modified
 	 */
 	private boolean bModified = false;
+
+
 	ArticleEditModel (Article org){
 		original = org;
 		edited = new Article (original);
@@ -46,7 +48,13 @@ class ArticleEditModel {
 	}
 
 	//Getters and setters
-	
+	public boolean isbModified() {
+		return bModified;
+	}
+
+	public void setbModified(boolean bModified) {
+		this.bModified = bModified;
+	}
 	/**
 	 * This method provide access to edited article abstract property. So, this abstract can be modified through this property
 	 * @return a StringPorperty of edited article abstract.
