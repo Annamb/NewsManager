@@ -1,1 +1,47 @@
-/* JavaFX CSS - Leave this comment until you have at least create one rule which uses -fx-Property */
+Button {          
+         
+         -fx-background-color: #ADD5F7; 
+         -fx-background-radius: 5; 
+         -fx-effect: dropshadow(three-pass-box, #A6D1F7, 10,0, 0,0); 
+         -fx-cursor: hand;
+         -fx-text-fill: #375F8F;
+         -fx-font-weight: bold; 
+        
+}
+MenuButton {
+	     -fx-background-color: #ADD5F7; 
+         -fx-background-radius: 5; 
+         -fx-effect: dropshadow(three-pass-box, #A6D1F7, 10,0, 0,0); 
+         -fx-cursor: hand;
+         -fx-text-fill: #375F8F;
+         -fx-font-weight: bold;
+}.menu-item .label{
+    -fx-text-fill: #375F8F;	
+}
+.combo-box {
+	     -fx-background-color: #ADD5F7; 
+         -fx-background-radius: 5; 
+         -fx-effect: dropshadow(three-pass-box, #A6D1F7, 10,0, 0,0); 
+         -fx-cursor: hand;
+         -fx-fill: #375F8F;
+         -fx-font-weight: bold;         
+}.arrow{
+    -fx-background-color:#375F8F;
+}.list-cell {    
+   
+    -fx-text-fill: #375F8F;
+}
+TextField{
+
+         -fx-background-radius: 5; 
+         -fx-effect: dropshadow(three-pass-box, #A6D1F7, 10,0, 0,0); 
+         -fx-cursor: hand;
+         -fx-text-fill: #375F8F;
+
+}
+.TextArea{
+	         -fx-background-color: #ADD5F7; 
+         -fx-background-radius: 5; 
+         -fx-effect: dropshadow(three-pass-box, #A6D1F7, 10,0, 0,0); 
+         -fx-cursor: hand;
+}
