@@ -62,7 +62,7 @@ import serverConection.ConnectionManager;
 import serverConection.exceptions.AuthenticationError;
 
 /**
- * @author ÃngelLucas
+ * @author ï¿½ngelLucas
  *
  */
 public class NewsReaderController {
@@ -127,10 +127,7 @@ public class NewsReaderController {
 						chosenArticle = newValue;
 						articleAbstract.getEngine().loadContent(chosenArticle.getAbstractText());;
 						articleImage.setImage(chosenArticle.getImageData());
-						
 						articleAbstract.setDisable(false);
-						//						articleAbstract.setEditable(false);
-
 					}
 					else { //Nothing selected
 
@@ -230,7 +227,8 @@ public class NewsReaderController {
 	}
 	
 	public void ClickDelete() {
-
+		newsReaderModel.deleteArticle(this.chosenArticle);
+		getData();
 		
 	}
 	
@@ -238,7 +236,7 @@ public class NewsReaderController {
 	@FXML
 	public void LoadArticleFromFile(Event e) {
 		FileChooser chooser =  new FileChooser();
-		chooser.setTitle("´ò¿ªÎÄ¼þ");
+		chooser.setTitle("ï¿½ï¿½ï¿½Ä¼ï¿½");
 		
 		chooser.getExtensionFilters().addAll(
 
