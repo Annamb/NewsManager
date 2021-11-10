@@ -15,6 +15,7 @@ import application.news.Article;
 import application.news.Categories;
 import application.news.User;
 import application.utils.JsonArticle;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -125,7 +126,19 @@ public class ArticleEditController {
       
         Stage stage1 = (Stage) ((Node) event.getSource()).getScene().getWindow();
     	stage1.close();
+    	
         
+    	
+//    	if(editingArticle.isbModified())
+//    	{
+//    		FXMLLoader loader = new FXMLLoader (getClass().getResource(
+//      				AppScenes.READER.getFxmlFile()));
+//            NewsReaderController controller = loader.<NewsReaderController>getController();
+//            controller.setConnectionManager(this.connection);
+//        	controller.setUsr(usr);
+//    	}
+	
+    			
         FXMLLoader loader = new FXMLLoader (getClass().getResource(
 				AppScenes.READER.getFxmlFile()));
 		try {
@@ -164,10 +177,8 @@ public class ArticleEditController {
         //this.editingArticle.commit();
         Article article = new Article();
         article.setCategory(category.toString());
-        bodyText.setText(bodyhtml.getHtmlText());
-        abstractText.setText(abstracthtml.getHtmlText());
         article.setBodyText(bodyText.getText());
-        article.setAbstractText(abstractText.getText());
+        article.setAbstractText(abstractText.getText());        
         article.setDeleted(false);
         article.setIdUser(usr.getIdUser());
         if (this.editingArticle != null && this.editingArticle.getArticleOriginal() != null) {

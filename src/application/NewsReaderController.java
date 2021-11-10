@@ -127,6 +127,7 @@ public class NewsReaderController {
 						chosenArticle = newValue;
 						articleAbstract.getEngine().loadContent(chosenArticle.getAbstractText());;
 						articleImage.setImage(chosenArticle.getImageData());
+						articleAbstract.setDisable(false);
 					}
 					else { //Nothing selected
 

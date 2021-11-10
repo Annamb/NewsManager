@@ -11,14 +11,18 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.web.HTMLEditor?>
 
 <AnchorPane prefHeight="420.0" prefWidth="570.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.ArticleEditController">
    <children>
-      <Label layoutX="31.0" layoutY="26.0" text="Article" />
-      <HBox layoutX="190.0" prefHeight="178.0" prefWidth="382.0">
+      <Label layoutX="31.0" layoutY="25.0" text="Article">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font></Label>
+      <HBox layoutX="189.0" layoutY="34.0" prefHeight="152.0" prefWidth="382.0">
          <children>
-            <VBox prefHeight="178.0" prefWidth="75.0" spacing="30.0">
+            <VBox prefHeight="150.0" prefWidth="75.0" spacing="30.0">
                <children>
                   <Label text="Title">
                      <VBox.margin>
@@ -29,12 +33,12 @@
                   <Label text="Category" />
                </children>
                <padding>
-                  <Insets left="10.0" top="34.0" />
+                  <Insets left="10.0" top="20.0" />
                </padding>
             </VBox>
             <VBox prefHeight="178.0" prefWidth="258.0" spacing="17.0">
                <padding>
-                  <Insets left="10.0" top="30.0" />
+                  <Insets left="10.0" top="20.0" />
                </padding>
                <children>
                   <TextField fx:id="title" prefHeight="26.0" prefWidth="244.0" stylesheets="@application.css" />
@@ -44,9 +48,9 @@
             </VBox>
          </children>
       </HBox>
-      <TextArea fx:id="abstractText" layoutX="31.0" layoutY="194.0" prefHeight="166.0" prefWidth="510.0" promptText="Abstract" style="-fx-background-color: #ADD5F7;" visible="true" wrapText="true" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="31.0" />
+      <TextArea fx:id="abstractText" layoutX="31.0" layoutY="194.0" prefHeight="166.0" prefWidth="510.0" promptText="Abstract" style="-fx-background-color: #ADD5F7;" visible="false" wrapText="true" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="31.0" />
       <TextArea fx:id="bodyText" layoutX="31.0" layoutY="194.0" prefHeight="166.0" prefWidth="509.0" promptText="Body" style="-fx-background-color: #ADD5F7#ADD5F7;" visible="false" wrapText="true" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="31.0" />
-      <HTMLEditor fx:id="abstracthtml" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" layoutX="31.0" layoutY="193.0" prefHeight="166.0" prefWidth="510.0" visible="false" AnchorPane.bottomAnchor="60.599999999999994" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="31.0" AnchorPane.topAnchor="192.99999999999997" />
+      <HTMLEditor fx:id="abstracthtml" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" layoutX="31.0" layoutY="193.0" prefHeight="166.0" prefWidth="510.0" visible="true" AnchorPane.bottomAnchor="60.599999999999994" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="31.0" AnchorPane.topAnchor="192.99999999999997" />
       <HTMLEditor fx:id="bodyhtml" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" layoutX="31.0" layoutY="193.0" prefHeight="166.0" prefWidth="510.0" visible="false" AnchorPane.leftAnchor="31.0" AnchorPane.rightAnchor="31.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#f7f8f8" height="100.0" layoutX="14.0" layoutY="60.0" stroke="BLACK" strokeType="INSIDE" width="144.0" AnchorPane.leftAnchor="31.0" />
       <ImageView fx:id="imageView" fitHeight="100.0" fitWidth="144.0" layoutX="14.0" layoutY="60.0" onMouseClicked="#onImageClicked" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="31.0" />
