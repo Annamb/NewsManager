@@ -15,10 +15,13 @@ import application.news.Article;
 import application.news.Categories;
 import application.news.User;
 import application.utils.JsonArticle;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.transformation.FilteredList;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.print.Collation;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -72,6 +75,7 @@ public class ArticleEditController {
     @FXML
     private Button sendbtn,showbodybtn,showabstractbtn;
 
+    private boolean isHtmlEditor = true;
 
 
     
@@ -83,6 +87,7 @@ public class ArticleEditController {
     @FXML
     void initialize() {
 
+    	setArticle(null);
 	        categoryBox.getItems().addAll(Categories.values());
         
     }
@@ -129,32 +134,33 @@ public class ArticleEditController {
     	
         
     	
-//    	if(editingArticle.isbModified())
-//    	{
-//    		FXMLLoader loader = new FXMLLoader (getClass().getResource(
-//      				AppScenes.READER.getFxmlFile()));
-//            NewsReaderController controller = loader.<NewsReaderController>getController();
-//            controller.setConnectionManager(this.connection);
-//        	controller.setUsr(usr);
-//    	}
+    	if(editingArticle.isbModified())
+    	{
+    		FXMLLoader loader = new FXMLLoader (getClass().getResource(
+      				AppScenes.READER.getFxmlFile()));
+           NewsReaderController controller = loader.<NewsReaderController>getController();
+            controller.setConnectionManager(this.connection);
+        	controller.setUsr(usr);
+
+    	}
 	
     			
-        FXMLLoader loader = new FXMLLoader (getClass().getResource(
-				AppScenes.READER.getFxmlFile()));
-		try {
-			Pane root = loader.load();
-			Stage stage = new Stage();
-			stage.initModality(Modality.WINDOW_MODAL);
-	        //stage.setTitle(AppScenes.READER.toString());
-	        stage.setScene(new Scene(root));
-	        NewsReaderController controller = loader.<NewsReaderController>getController();
-	        controller.setConnectionManager(this.connection);
-        	controller.setUsr(usr);
-        	stage.show();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+//        FXMLLoader loader = new FXMLLoader (getClass().getResource(
+//				AppScenes.READER.getFxmlFile()));
+//		try {
+//			Pane root = loader.load();
+//			Stage stage = new Stage();
+//			stage.initModality(Modality.WINDOW_MODAL);
+//	        //stage.setTitle(AppScenes.READER.toString());
+//	        stage.setScene(new Scene(root));
+//	        NewsReaderController controller = loader.<NewsReaderController>getController();
+//	        controller.setConnectionManager(this.connection);
+//        	controller.setUsr(usr);
+//        	stage.show();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 		
     }
 
@@ -177,8 +183,22 @@ public class ArticleEditController {
         //this.editingArticle.commit();
         Article article = new Article();
         article.setCategory(category.toString());
-        article.setBodyText(bodyText.getText());
-        article.setAbstractText(abstractText.getText());        
+        
+        
+        
+
+        if (isHtmlEditor) {
+            article.setBodyText(bodyhtml.getHtmlText());
+            article.setAbstractText(abstracthtml.getHtmlText());
+            
+		}else {
+			article.setBodyText(bodyText.getText());
+	        article.setAbstractText(abstractText.getText());
+		}
+        
+        
+
+        
         article.setDeleted(false);
         article.setIdUser(usr.getIdUser());
         if (this.editingArticle != null && this.editingArticle.getArticleOriginal() != null) {
@@ -189,6 +209,8 @@ public class ArticleEditController {
         article.setNeedBeSaved(true);
         article.setSubtitle(subtitle.getText());
         article.setTitle(titleText);
+        
+        //this.onImageClicked();
         Image imagedata =  imageView.getImage();
         if (imagedata != null) {
         	article.setImageData(imagedata);
@@ -202,7 +224,24 @@ public class ArticleEditController {
     }
 
 
-    /**
+//    /**
+//	 * This method is used to set the connection manager which is
+//	 * needed to save a news
+//	 *
+//	 * @param connection connection manager
+//	 */
+//	void setConnectionMannager(ConnectionManager connection) {
+//	    this.connection = connection;
+//	
+//		if (this.usr == null) {
+//			this.sendbtn.setDisable(true);
+//		}
+//		else {
+//			this.sendbtn.setDisable(false);
+//		}
+//	}
+
+	/**
      * This method is used to set the connection manager which is
      * needed to save a news
      *
@@ -216,7 +255,8 @@ public class ArticleEditController {
 		}
     	else {
     		this.sendbtn.setDisable(false);
-		}
+    	}
+		
     }
 
     /**
@@ -267,7 +307,11 @@ public class ArticleEditController {
         if (image != null) {
             article.setImageData(image);
         }
+        setArticle(article);
         write();
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setContentText("Save successfully!");
+        alert.show();
     }
 
     /**
@@ -281,8 +325,7 @@ public class ArticleEditController {
         if (article != null) {
             title.setText(article.getTitle());
             title.setEditable(false);
-            bodyhtml.setHtmlText(article.getBodyText());
-            bodyText.setText(article.getBodyText());
+            subtitle.setText(article.getSubtitle());
             Categories[] catesCategories =  Categories.values();
             for (Categories cate: catesCategories) {
 				if (cate.toString().equals(article.getCategory())) {
@@ -292,13 +335,29 @@ public class ArticleEditController {
 				
 			}
            
-            subtitle.setText(article.getSubtitle());
+            bodyhtml.setHtmlText(article.getBodyText());
+            bodyText.setText(article.getBodyText());
             abstractText.setText(article.getAbstractText());
             abstracthtml.setHtmlText(article.getAbstractText());
             if (article.getImageData() != null) {
 				imageView.setImage(article.getImageData());
 			}
-        }
+            
+            //binding
+            
+            this.editingArticle.abstractTextProperty().bind(abstractText.textProperty());
+            this.editingArticle.bodyTextProperty().bind(bodyText.textProperty()); 
+            this.editingArticle.titleProperty().bind(title.textProperty());
+            this.editingArticle.subtitleProperty().bind(subtitle.textProperty());
+            
+//            editingArticle.abstractTextProperty().bind(abstracthtml.accessibleTextProperty());
+//            editingArticle.bodyTextProperty().bind(bodyhtml.accessibleTextProperty());
+ 
+
+            
+
+            }
+
     }
 
     /**
@@ -306,7 +365,10 @@ public class ArticleEditController {
      * Article must have a title
      */
     private void write() {
-        //TODO Consolidate all changes
+        //TODO Consolidate all changes 	  	
+    	
+    	
+    	
         this.editingArticle.commit();
         //Removes special characters not allowed for filenames
         String name = this.getArticle().getTitle().replaceAll("\\||/|\\\\|:|\\?", "");
@@ -333,21 +395,26 @@ public class ArticleEditController {
     	 if (abstractText.isVisible()) {
     		 abstractText.setVisible(false);
 			 abstracthtml.setVisible(true);
+			 isHtmlEditor =true;
 			 abstracthtml.setHtmlText(abstractText.getText());
          } else if (bodyText.isVisible())  {
         	 bodyText.setVisible(false);
         	 bodyhtml.setVisible(true);
-        	 bodyhtml.setHtmlText(bodyText.getText());
+        	 isHtmlEditor =true;
+        	bodyhtml.setHtmlText(bodyText.getText());
 		} else if (abstracthtml.isVisible()) {
 			abstracthtml.setVisible(false);
    		 	abstractText.setVisible(true);
+   		 	isHtmlEditor =false;
    		 	abstractText.setText(abstracthtml.getHtmlText());
 		} else if (bodyhtml.isVisible()) {
 			bodyhtml.setVisible(false);
    		 	bodyText.setVisible(true);
+   		 	isHtmlEditor =false;
    		    bodyText.setText(bodyhtml.getHtmlText());
 		}
-         
+//         editingArticle.abstractTextProperty().set(abstracthtml.getHtmlText());
+//         editingArticle.bodyTextProperty().set(bodyhtml.getHtmlText());
     }
 
     @FXML
@@ -355,6 +422,7 @@ public class ArticleEditController {
         if (bodyText.isVisible()) {
             bodyText.setVisible(false);
             abstractText.setVisible(true);
+            isHtmlEditor =false;
             abstractText.setText(abstracthtml.getHtmlText());
             showbodybtn.setVisible(false);
             showabstractbtn.setVisible(true);
@@ -364,6 +432,7 @@ public class ArticleEditController {
         if (bodyhtml.isVisible()) {
         	bodyhtml.setVisible(false);
             abstracthtml.setVisible(true);
+            isHtmlEditor =true;
             abstracthtml.setHtmlText(abstractText.getText());
             showbodybtn.setVisible(false);
             showabstractbtn.setVisible(true);
@@ -372,6 +441,7 @@ public class ArticleEditController {
         if (abstractText.isVisible()){
             abstractText.setVisible(false);
             bodyText.setVisible(true);
+            isHtmlEditor =true;
             bodyText.setText(bodyhtml.getHtmlText());
             showbodybtn.setVisible(false);
             showabstractbtn.setVisible(true);
@@ -381,6 +451,8 @@ public class ArticleEditController {
         if (abstracthtml.isVisible()) {
         	abstracthtml.setVisible(false);
         	bodyhtml.setVisible(true);
+            isHtmlEditor =true;
+
         	bodyhtml.setHtmlText(bodyText.getText());
             showbodybtn.setVisible(false);
             showabstractbtn.setVisible(true);
@@ -388,41 +460,5 @@ public class ArticleEditController {
         }
     }
     
-    @FXML
-    public void showAbstract(){
-        if (bodyText.isVisible()) {
-            bodyText.setVisible(false);
-            abstractText.setVisible(true);
-            abstractText.setText(abstracthtml.getHtmlText());
-            showbodybtn.setVisible(true);
-            showabstractbtn.setVisible(false);
-            return;
-        }
-        
-        if (bodyhtml.isVisible()) {
-        	bodyhtml.setVisible(false);
-            abstracthtml.setVisible(true);
-            abstracthtml.setHtmlText(abstractText.getText());
-            showbodybtn.setVisible(true);
-            showabstractbtn.setVisible(false);
-            return;
-        }
-        if (abstractText.isVisible()){
-            abstractText.setVisible(false);
-            bodyText.setVisible(true);
-            bodyText.setText(bodyhtml.getHtmlText());
-            showbodybtn.setVisible(true);
-            showabstractbtn.setVisible(false);
-          return;
-        }
-        
-        if (abstracthtml.isVisible()) {
-        	abstracthtml.setVisible(false);
-        	bodyhtml.setVisible(true);
-        	bodyhtml.setHtmlText(bodyText.getText());
-            showbodybtn.setVisible(true);
-            showabstractbtn.setVisible(false);
-            return;
-        }
-    }
+
 }
