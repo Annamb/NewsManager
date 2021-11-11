@@ -287,14 +287,12 @@ public class NewsReaderController {
             	stage.showAndWait();
             	
             	getData();
-			} else if(article == null) {
+            	return;
+            	
+			} else if(scene == AppScenes.LOGIN) {
             	
             	LoginController controller = loader.<LoginController>getController();
-            	
-    			Properties prop = Main.buildServerProperties();
-    			ConnectionManager connection = new ConnectionManager(prop);
-    			connection.setAnonymousAPIKey("ANON04");
-    			controller.setConnectionManager(connection);
+    			controller.setConnectionManager(this.connectionManager);
     			
     			stage.showAndWait();
     			
@@ -303,6 +301,8 @@ public class NewsReaderController {
             	if (loggedInUsr != null) {
             		setUsr(loggedInUsr);
             	}
+            	return;
+            	
 			 } else if(scene == AppScenes.NEWS_DETAILS) {
 				 ArticleDetailsController controller = loader.<ArticleDetailsController>getController();
 	            	
@@ -319,9 +319,9 @@ public class NewsReaderController {
             	
             }
             
-		} catch(AuthenticationError e) {
-			Logger.getGlobal().log(Level.SEVERE, "Error in loging process");
-			e.printStackTrace();
+//		} catch(AuthenticationError e) {
+//			Logger.getGlobal().log(Level.SEVERE, "Error in loging process");
+//			e.printStackTrace();
 		} catch(IOException e){
 			e.printStackTrace();
 		}
