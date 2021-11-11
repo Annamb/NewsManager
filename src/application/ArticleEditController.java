@@ -115,7 +115,6 @@ public class ArticleEditController {
                 if (image != null) {
                     editingArticle.setImage(image);
                     this.imageView.setImage(image);
-                    //TODO Update image on UI
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -144,24 +143,6 @@ public class ArticleEditController {
         	controller.setUsr(usr);
 
     	}
-	
-    			
-//        FXMLLoader loader = new FXMLLoader (getClass().getResource(
-//				AppScenes.READER.getFxmlFile()));
-//		try {
-//			Pane root = loader.load();
-//			Stage stage = new Stage();
-//			stage.initModality(Modality.WINDOW_MODAL);
-//	        //stage.setTitle(AppScenes.READER.toString());
-//	        stage.setScene(new Scene(root));
-//	        NewsReaderController controller = loader.<NewsReaderController>getController();
-//	        controller.setConnectionManager(this.connection);
-//        	controller.setUsr(usr);
-//        	stage.show();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 		
     }
 
@@ -180,8 +161,7 @@ public class ArticleEditController {
             alert.showAndWait();
             return false;
         }
-//TODO prepare and send using connection.saveArticle( ...)
-        //this.editingArticle.commit();
+
         Article article = new Article();
         article.setCategory(category.toString());
         
@@ -224,24 +204,6 @@ public class ArticleEditController {
         return true;
     }
 
-
-//    /**
-//	 * This method is used to set the connection manager which is
-//	 * needed to save a news
-//	 *
-//	 * @param connection connection manager
-//	 */
-//	void setConnectionMannager(ConnectionManager connection) {
-//	    this.connection = connection;
-//	
-//		if (this.usr == null) {
-//			this.sendbtn.setDisable(true);
-//		}
-//		else {
-//			this.sendbtn.setDisable(false);
-//		}
-//	}
-
 	/**
      * This method is used to set the connection manager which is
      * needed to save a news
@@ -265,7 +227,6 @@ public class ArticleEditController {
      */
     void setUsr(User usr) {
         this.usr = usr;
-        //TODO Update UI and controls
     	if (this.usr == null) {
     		this.sendbtn.setDisable(true);
 		}
@@ -294,7 +255,6 @@ public class ArticleEditController {
             alert.showAndWait();
             return;
         }
-//TODO prepare and send using connection.saveArticle( ...)
         Article article = new Article();
         article.setTitle(titleText);
         article.setCategory(category.toString());
@@ -302,8 +262,6 @@ public class ArticleEditController {
         article.setSubtitle(subtitle.getText());
         article.setBodyText(bodyText.getText());
         article.setAbstractText(abstractText.getText());
-//        article.setBodyText(bodyhtml.getHtmlText());
-//        article.setAbstractText(abstracthtml.getHtmlText());
         Image image = imageView.getImage();
         if (image != null) {
             article.setImageData(image);
@@ -322,7 +280,7 @@ public class ArticleEditController {
      */
     void setArticle(Article article) {
         this.editingArticle = (article != null) ? new ArticleEditModel(article) : new ArticleEditModel(usr);
-        //TODO update UI
+
         if (article != null) {
             title.setText(article.getTitle());
             title.setEditable(false);
@@ -351,12 +309,6 @@ public class ArticleEditController {
             this.editingArticle.titleProperty().bind(title.textProperty());
             this.editingArticle.subtitleProperty().bind(subtitle.textProperty());
             
-//            editingArticle.abstractTextProperty().bind(abstracthtml.accessibleTextProperty());
-//            editingArticle.bodyTextProperty().bind(bodyhtml.accessibleTextProperty());
- 
-
-            
-
             }
 
     }
@@ -366,8 +318,6 @@ public class ArticleEditController {
      * Article must have a title
      */
     private void write() {
-        //TODO Consolidate all changes 	  	
-    	
     	
     	
         this.editingArticle.commit();
@@ -414,8 +364,6 @@ public class ArticleEditController {
    		 	isHtmlEditor =false;
    		    bodyText.setText(bodyhtml.getHtmlText());
 		}
-//         editingArticle.abstractTextProperty().set(abstracthtml.getHtmlText());
-//         editingArticle.bodyTextProperty().set(bodyhtml.getHtmlText());
     }
 
     @FXML

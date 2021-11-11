@@ -166,7 +166,7 @@ public class NewsReaderController {
 	private void getData() {
 		//TODO retrieve data and update UI
 		 newsReaderModel.retrieveData();
-		 categoryCombo.getItems().addAll(newsReaderModel.getCategories());
+		 categoryCombo.setItems(newsReaderModel.getCategories());
 		 categoryCombo.getSelectionModel().selectFirst();
 		 
     	filteredData = new FilteredList<>(newsReaderModel.getArticles(), article -> true);
@@ -206,7 +206,6 @@ public class NewsReaderController {
 		this.usr = usr;
 		//Reload articles
 		this.getData();
-		//TODO Update UI
 		userName.setText(this.usr.getLogin());
 	}
 	
@@ -309,8 +308,10 @@ public class NewsReaderController {
 	             if (article != null) {
 	            	controller.setArticle(article);
 				 }
-	            	
-	             controller.setUsr(usr);
+	            if(this.usr != null) {
+	            	controller.setUsr(this.usr);
+	            }
+
 	             stage.show();
 	             return;
             }else {
@@ -318,10 +319,6 @@ public class NewsReaderController {
             	 NewsReaderController controller = loader.<NewsReaderController>getController();
             	
             }
-            
-//		} catch(AuthenticationError e) {
-//			Logger.getGlobal().log(Level.SEVERE, "Error in loging process");
-//			e.printStackTrace();
 		} catch(IOException e){
 			e.printStackTrace();
 		}
