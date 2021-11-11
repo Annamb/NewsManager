@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
 /**
@@ -35,10 +36,13 @@ public class ArticleDetailsController {
 	    private Label articleCategory;
 
 	    @FXML
-	    private TextArea articleBody;
+	    private WebView articleBody;
 	    
 		@FXML
-		private TextArea articleAbstract;
+		private WebView articleAbstract;
+		
+		@FXML
+		private Button switchButton;
 		
 	    @FXML
 		private ImageView imageView;
@@ -66,14 +70,12 @@ public class ArticleDetailsController {
 	            title.setText(article.getTitle());
 	            subtitle.setText(article.getSubtitle());
 	            articleCategory.setText(article.getCategory());
-	            articleAbstract.setText(article.getAbstractText());
-	            articleBody.setText(article.getBodyText());
+	            articleAbstract.getEngine().loadContent(article.getAbstractText());
+	            articleBody.getEngine().loadContent(article.getBodyText());
 	            if (article.getImageData() != null) {
 					imageView.setImage(article.getImageData());
 				}
-	            
-	            articleAbstract.setEditable(false);
-	            articleBody.setEditable(false);
+	          
 	        }
 	    }
 	    
@@ -96,12 +98,14 @@ public class ArticleDetailsController {
 		   if (articleBody.isVisible()) {
 		    	articleBody.setVisible(false);
 		    	articleAbstract.setVisible(true);
+		    	switchButton.setText("Abstract");
 		    	return;
 		   }
 		   
 		   if (articleAbstract.isVisible()){
 		   	articleAbstract.setVisible(false);
 		   	articleBody.setVisible(true);
+		   	switchButton.setText("Body");
 		        return;
 		   }
     }
