@@ -284,8 +284,9 @@ public class NewsReaderController {
 				}
             	controller.setConnectionMannager(this.connectionManager);
             	controller.setUsr(usr);
-            	stage.show();
-            	return;
+            	stage.showAndWait();
+            	
+            	getData();
 			} else if(article == null) {
             	
             	LoginController controller = loader.<LoginController>getController();
