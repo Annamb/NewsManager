@@ -425,6 +425,7 @@ public class ArticleEditController {
             abstractText.setVisible(true);
             isHtmlEditor =false;
             abstractText.setText(abstracthtml.getHtmlText());
+            bodyhtml.setHtmlText(bodyText.getText());
             showbodybtn.setVisible(false);
             showabstractbtn.setVisible(true);
             return;
@@ -434,7 +435,8 @@ public class ArticleEditController {
         	bodyhtml.setVisible(false);
             abstracthtml.setVisible(true);
             isHtmlEditor =true;
-            abstracthtml.setHtmlText(abstractText.getText());
+            abstracthtml.setHtmlText(abstractText.getText());  
+            bodyText.setText(bodyhtml.getHtmlText());
             showbodybtn.setVisible(false);
             showabstractbtn.setVisible(true);
             return;
@@ -444,6 +446,7 @@ public class ArticleEditController {
             bodyText.setVisible(true);
             isHtmlEditor =true;
             bodyText.setText(bodyhtml.getHtmlText());
+            abstracthtml.setHtmlText(abstractText.getText());
             showbodybtn.setVisible(false);
             showabstractbtn.setVisible(true);
           return;
@@ -453,8 +456,8 @@ public class ArticleEditController {
         	abstracthtml.setVisible(false);
         	bodyhtml.setVisible(true);
             isHtmlEditor =true;
-
         	bodyhtml.setHtmlText(bodyText.getText());
+        	abstractText.setText(abstracthtml.getHtmlText());
             showbodybtn.setVisible(false);
             showabstractbtn.setVisible(true);
             return;
