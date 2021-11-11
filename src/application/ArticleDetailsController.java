@@ -98,14 +98,14 @@ public class ArticleDetailsController {
 		   if (articleBody.isVisible()) {
 		    	articleBody.setVisible(false);
 		    	articleAbstract.setVisible(true);
-		    	switchButton.setText("Abstract");
+		    	switchButton.setText("Body");
 		    	return;
 		   }
 		   
 		   if (articleAbstract.isVisible()){
 		   	articleAbstract.setVisible(false);
 		   	articleBody.setVisible(true);
-		   	switchButton.setText("Body");
+		   	switchButton.setText("Abstract");
 		        return;
 		   }
     }
