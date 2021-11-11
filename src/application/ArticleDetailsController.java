@@ -49,7 +49,6 @@ public class ArticleDetailsController {
 
 	    @FXML
 	    void initialize() {
-	        
 	    }
 
 		/**
@@ -76,6 +75,9 @@ public class ArticleDetailsController {
 					imageView.setImage(article.getImageData());
 				}
 	          
+	        }
+	        if(this.usr != null) {
+	        	userName.setText(this.usr.getLogin());
 	        }
 	    }
 	    
