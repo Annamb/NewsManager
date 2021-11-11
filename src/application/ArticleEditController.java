@@ -114,6 +114,7 @@ public class ArticleEditController {
                 Image image = controller.getImage();
                 if (image != null) {
                     editingArticle.setImage(image);
+                    this.imageView.setImage(image);
                     //TODO Update image on UI
                 }
             } catch (Exception e) {

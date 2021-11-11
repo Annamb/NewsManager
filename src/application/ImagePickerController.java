@@ -36,6 +36,7 @@ public class ImagePickerController {
     	if (idImageURL.getText()!=null && !idImageURL.getText().equals(""))
     		{
     		image = new Image(idImageURL.getText(), false);
+    		
     		}
     		
 		stage.close();
