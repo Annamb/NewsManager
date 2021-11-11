@@ -125,7 +125,7 @@ public class NewsReaderController {
 				public void changed(ObservableValue<? extends Article> observable, Article oldValue, Article newValue) {
 					if (newValue != null){
 						chosenArticle = newValue;
-						articleAbstract.getEngine().loadContent(chosenArticle.getAbstractText());;
+						articleAbstract.getEngine().loadContent(chosenArticle.getAbstractText());
 						articleImage.setImage(chosenArticle.getImageData());
 						articleAbstract.setDisable(false);
 					}
