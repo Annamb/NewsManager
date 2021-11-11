@@ -1,9 +1,9 @@
 # NewsManager
 News manager desktop application for programming of user interfaces
 
-DIEGO VAN DOORN, JONAS
-MARGRÉT BENEDIKTSDÓTTIR, ANNA
-LAFAILLE, ALEXANDRA
-YI, CHENHAO
+ANNA MARGRÉT BENEDIKTSDÓTTIR,
+CHENHAO YI,
+ALEXANDRA LAFAILLE,
+JONAS DIEGO VAN DOORN,
 
 Group 4
